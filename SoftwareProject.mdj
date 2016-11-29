@@ -2001,7 +2001,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "UseCaseDiagram2",
+					"name": "selectCityAndDate",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
@@ -5141,7 +5141,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "UseCaseDiagram3",
+					"name": "JoinInGroup",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
@@ -8141,7 +8141,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "UseCaseDiagram4",
+					"name": "Pay",
 					"visible": true,
 					"defaultDiagram": false,
 					"ownedViews": [
