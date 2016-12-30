@@ -1,3 +1,5 @@
 TourismWebsite/.idea
 TourismWebsite/.DS\_Store
 *.swp
+*.pyc
+__pychche__
