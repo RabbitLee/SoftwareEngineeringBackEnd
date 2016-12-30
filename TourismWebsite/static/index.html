@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="static/index.css">
+    <script src="static/jquery.js"></script>
+</head>
+<body>
+<p>hello~啦啦啦</p>
+</body>
+<script>
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:5000/login/isUserValid",
+        data: {
+            name: "lyc",
+            password: "lyc123"
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    })
+</script>
+</html>
