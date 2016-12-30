@@ -1,1 +1,3 @@
-TourismWebsite/.*
+TourismWebsite/.idea
+TourismWebsite/.DS\_Store
+*.swp
