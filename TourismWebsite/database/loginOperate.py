@@ -1,14 +1,13 @@
+# coding=utf-8
 from pymongo import MongoClient
+
 client = MongoClient('localhost', 27017)
-db = client['test']
-collect = db['blog']
+mydb = client.mydb
 
 def isUserValid(name, password):
-    if collect.find_one({'name': name})['password'] == password:
-        return True
-    else:
+    if mydb.user.find({'name': name, 'password': password}).count() == 0:
         return False
-    # print(collect.find_one({'name': 'lyc'})['password'])
-
+    else:
+        return True
 if __name__ == '__main__':
-    print(isUserValid('lyc', 'lyc123'))
+    print(isUserValid('华泽文','hzw'))
