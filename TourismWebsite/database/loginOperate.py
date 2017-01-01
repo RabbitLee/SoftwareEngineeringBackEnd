@@ -8,7 +8,6 @@ def isUserValid(name, password):
         return True
     else:
         return False
-    # print(collect.find_one({'name': 'lyc'})['password'])
 
 if __name__ == '__main__':
     print(isUserValid('lyc', 'lyc123'))
