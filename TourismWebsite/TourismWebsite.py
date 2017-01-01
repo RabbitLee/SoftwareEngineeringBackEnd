@@ -15,5 +15,12 @@ def index():
 from route.loginPages import login
 app.register_blueprint(login, url_prefix='/login')
 
+from route.registerPages import registers
+app.register_blueprint(registers, url_prefix='/register')
+
+from route.selectSpotsPages import selectSpots
+app.register_blueprint(selectSpots, url_prefix='/selectSpots')
+
+
 if __name__ == '__main__':
     app.run()
