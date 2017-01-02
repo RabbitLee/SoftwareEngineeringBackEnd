@@ -40,7 +40,4 @@ def getAllSpots(city):
     return dict
 
 if __name__ == '__main__':
-    # print(getAllSpots('上海'))
-    a = []
-    a = [110,115]
-    print str(a[0]) + ","+ str(a[1])
+    print(getAllSpots('上海'))

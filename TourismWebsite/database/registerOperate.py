@@ -1,6 +1,6 @@
 # coding=utf-8
-from pymongo import MongoClient
 
+from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
 
