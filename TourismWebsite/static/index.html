@@ -12,10 +12,9 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "http://localhost:5000/login/isUserValid",
+        url: "http://127.0.0.1:5000/selectSpots/getAllSpots",
         data: {
-            name: "lyc",
-            password: "lyc123"
+            cityName: '南京'
         },
         success: function (data) {
             console.log(data);

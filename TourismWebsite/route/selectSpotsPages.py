@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-
 from database.selectSpotsOperate import *
+
 
 selectSpots = Blueprint('selectSpots', __name__)
 
@@ -21,7 +21,41 @@ def get_all_cities():
     provinceName = request.form['provinceName']
     return jsonify(getAllCities(provinceName))
 
-@selectSpots.route('/getAllSpots')
+@selectSpots.route('/getAllSpots', methods=['POST'])
 def get_all_spots():
     cityName = request.form['cityName']
     return jsonify(getAllSpots(cityName))
+
+@selectSpots.route('/submitSelectedSpots')
+def submit_selected_spots():
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

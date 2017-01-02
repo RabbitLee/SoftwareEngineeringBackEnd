@@ -21,12 +21,26 @@ def getAllCities(province):
 def getAllSpots(city):
     dict = {}
     citys = mydb.city.find_one({"name": city})
-    dict["certerPosition"] = citys["centerposition"]
+    dict["centerPosition"] = citys["centerposition"]
     dict["spots"] = []
     for spot in mydb.city.find_one({"name": city})["spots"]:
-        dict["spots"].append(mydb.spot.find_one({"_id":spot}))
-    dict["recommendedSpots"] = citys["recommended_spots"]
+        # dict["spots"].append(mydb.spot.find_one({"_id": spot}))
+        dict1 = {}
+        dict["spots"].append(dict1)
+        dict1["spotid"] = []
+        dict1["name"] = []
+        dict1["visit_time"] = []
+        dict1["coordinate"] = []
+        dict1["level"] = []
+        dict1["spotid"].append(mydb.spot.find_one({"_id": spot})["spotid"])
+        dict1["name"].append(mydb.spot.find_one({"_id": spot})["name"])
+        dict1["visit_time"].append(mydb.spot.find_one({"_id": spot})["visit_time"])
+        dict1["coordinate"].append(mydb.spot.find_one({"_id": spot})["mapID"]["LngLat"])
+        dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
 
 if __name__ == '__main__':
-    print(getAllCities('江苏'))
+    # print(getAllSpots('上海'))
+    a = []
+    a = [110,115]
+    print str(a[0]) + ","+ str(a[1])

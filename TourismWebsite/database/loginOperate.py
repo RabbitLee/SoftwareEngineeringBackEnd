@@ -9,6 +9,5 @@ def isUserValid(name, password):
         return False
     else:
         return True
-
 if __name__ == '__main__':
     print(isUserValid('华泽文','hzw'))
