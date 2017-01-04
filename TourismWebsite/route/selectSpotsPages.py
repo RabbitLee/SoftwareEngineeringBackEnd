@@ -30,7 +30,8 @@ def get_all_spots():
 def submit_selected_spots():
     start_date = request.form['start_date']
     end_date = request.form['end_date']
-
+    spots_id = request.form['spots_id']
+    return 1
 
 
 
