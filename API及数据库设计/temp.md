@@ -19,3 +19,13 @@
 # 管理员
     登录
     系统分配管理员
+
+
+
+## note
++ 前端修改 HTML 页面跳转（改为路由）
++ 前端请求 API 用相对路径 例：/login/isUserValid
++ nodejs + flask 两层 API 写法（考虑登录状态）
++ 后期 API 编写方式：
+    前 -> 后， 由调用者编写， 提交到 dev 分支后以 issue 的方式通知负责的童鞋  
+    session 信息
