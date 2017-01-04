@@ -4,3 +4,4 @@ TourismWebsite/.DS\_Store
 *.pyc
 __pychche__
 .idea/
+venv

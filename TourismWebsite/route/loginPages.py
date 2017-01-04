@@ -1,7 +1,9 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-from database.loginOperate import *
+import sys, os
+sys.path.append(os.path.dirname(__file__)+'/../database/')
+from loginOperate import *
 
 login = Blueprint('login', __name__)
 
