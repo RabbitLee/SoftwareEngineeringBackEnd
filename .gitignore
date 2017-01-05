@@ -1,5 +1,6 @@
 TourismWebsite/.idea
 TourismWebsite/.DS\_Store
+TourismWebsite/rocket.pid
 *.swp
 *.pyc
 __pychche__
