@@ -3,7 +3,7 @@ from flask import request
 from flask import jsonify
 import sys, os
 sys.path.append(os.path.dirname(__file__)+'/../database/')
-from registerOperate import *
+from database.registerOperate import *
 
 registers = Blueprint('register', __name__)
 
