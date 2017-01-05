@@ -10,6 +10,7 @@ login = Blueprint('login', __name__)
 
 @login.route('/isUserValid', methods=['POST'])
 def login_is_user_valid():
+   print (request.form)
    name = request.form['name']
    password = request.form['password']
    if (isUserValid(name, password) == True):
