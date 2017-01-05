@@ -4,10 +4,14 @@ source venv/bin/activate
 # update project
 git pull origin master
 
+# update python environment and install new module
+pip install -r requirements.txt
+
 # restart and update database
 sudo service mongod restart
 python TourismWebsite/database/initialize.py
 
-# update python environment and install new module
-pip install -r requirements.txt
+# restart server
+kill `cat rocket.pid`
+
 
