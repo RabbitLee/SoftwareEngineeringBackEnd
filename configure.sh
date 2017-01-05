@@ -13,5 +13,6 @@ python TourismWebsite/database/initialize.py
 
 # restart server
 kill `cat rocket.pid`
-
+cd TourismWebsite/
+gunicorn -c ../deploy_config.py TourismWebsite:app -p rocket.pid -D
 
