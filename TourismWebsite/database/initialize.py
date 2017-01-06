@@ -1,7 +1,9 @@
-#coding=utf-8
 import urllib,json
 from urllib import urlencode
 from pymongo import MongoClient
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
@@ -31,25 +33,23 @@ spots = [{'name':'东方明珠', 'mapID':{'LngLat':[121.52063,31.239136], 'exact
          {'name':'迪斯尼', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪斯尼乐园'}, 'visit_time':480, 'level': 1},
          {'name':'佘山', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1}]
 myspot.insert(spots)
-myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
-myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
-myspot.update({'name':'豫园'}, {'$set':{'spotid':str(myspot.find_one({"name":"豫园"})["_id"])}})
-myspot.update({'name':'迪斯尼'}, {'$set':{'spotid':str(myspot.find_one({"name":"迪斯尼"})["_id"])}})
-myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
+##myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
+##myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
+##myspot.update({'name':'豫园'}, {'$set':{'spotid':str(myspot.find_one({"name":"豫园"})["_id"])}})
+##myspot.update({'name':'迪斯尼'}, {'$set':{'spotid':str(myspot.find_one({"name":"迪斯尼"})["_id"])}})
+##myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
 
 myroute = mydb.route
 routes = [{'spots':[[myspot.find_one({"name":"东方明珠"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '12:00']], [['13:00', '17:00']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}]
 myuser.update({'name':'华泽文'}, {'$set':{'routeid':myroute.insert(routes)}})
 
-
 mydetailedroute = mydb.detailedroute
 detailedroutes = [{}]
-
 
 mycity = mydb.city
 citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪斯尼"})["_id"]]},
          {'name':'南京', 'centerposition':[111, 96], 'spots':[myspot.find_one({"name":"佘山"})["_id"]]},
-         {'name':'苏州', 'centerposition':[115, 97]}]
+         {'name':'苏州', 'centerposition':[115, 97], 'spots':[]}]
 mycity.insert(citys)
 
 myprovince = mydb.province
@@ -57,16 +57,16 @@ provinces = [{'name':'上海', 'citys':['上海']},
              {'name':'江苏', 'citys':['南京', '苏州']}]
 myprovince.insert(provinces)
 
-def spotDistance(origin, destination):
+def spotDistance(origin, destination, city):
     url = "http://restapi.amap.com/v3/direction/transit/integrated?"
-    orilng = mydb.spot.find_one({"spotid": origin})["mapID"]["LngLat"][0]
-    orilat = mydb.spot.find_one({"spotid": origin})["mapID"]["LngLat"][1]
-    deslng = mydb.spot.find_one({"spotid": destination})["mapID"]["LngLat"][0]
-    deslat = mydb.spot.find_one({"spotid": destination})["mapID"]["LngLat"][1]
+    orilng = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][0]
+    orilat = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][1]
+    deslng = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][0]
+    deslat = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][1]
     params = {
         "origin": str(orilng) + ','+ str(orilat),
         "destination": str(deslng) + ','+ str(deslat),
-        "city": "010",
+        "city": city,
         "output": "json",
         "key": "a33b52f76e71d0efdf120c6a0997c380",
     }
@@ -76,3 +76,9 @@ def spotDistance(origin, destination):
     res = json.loads(content)
     return res["route"]["transits"][0]["duration"]
 
+mydistance = mydb.distance
+for city in mycity.find():
+    for spot1 in city["spots"]:
+        for spot2 in city["spots"]:
+            if spot1 != spot2:
+                mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
