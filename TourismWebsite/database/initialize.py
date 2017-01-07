@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import urllib,json
 from urllib import urlencode
 from pymongo import MongoClient
@@ -10,21 +11,25 @@ mydb = client.mydb
 
 mydb.user.remove()
 mydb.spot.remove()
+mydb.distance.remove()
 mydb.route.remove()
+mydb.agency.remove()
+mydb.detailedroute.remove()
 mydb.city.remove()
 mydb.province.remove()
 
 myuser = mydb.user
-users = [{'name':'华泽文', 'password':'hzw', 'email':'111', 'phone':'18221037351'},
-         {'name':'曾一帆', 'password':'zyf', 'email':'222', 'phone':'18221225358'},
-         {'name':'李逸超', 'password':'lyc', 'email':'333', 'phone':'18211111111'},
-         {'name':'赵昂悠悠', 'password':'zayy', 'email':'444', 'phone':'18222222222'}]
+users = [{'name':'华泽文', 'password':'hzw', 'email':'111', 'phone':'18221037351', 'routeID':[], 'detailedrouteID':[]},
+         {'name':'曾一帆', 'password':'zyf', 'email':'222', 'phone':'18221225358', 'routeID':[], 'detailedrouteID':[]},
+         {'name':'李逸超', 'password':'lyc', 'email':'333', 'phone':'18211111111', 'routeID':[], 'detailedrouteID':[]},
+         {'name':'赵昂悠悠', 'password':'zayy', 'email':'444', 'phone':'18222222222', 'routeID':[], 'detailedrouteID':[]}]
 myuser.insert(users)
 
-myuser = mydb.agency
+myagency = mydb.agency
 agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'11111111'},
             {'name':'中国国旅', 'password':'zggl', 'email':'666', 'phone':'22222222'},
             {'name':'北京青旅', 'password':'bjql', 'email':'777', 'phone':'33333333'}]
+myagency.insert(agencies)
 
 myspot = mydb.spot
 spots = [{'name':'东方明珠', 'mapID':{'LngLat':[121.52063,31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':60, 'level': 0},
@@ -40,11 +45,16 @@ myspot.insert(spots)
 ##myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
 
 myroute = mydb.route
-routes = [{'spots':[[myspot.find_one({"name":"东方明珠"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '12:00']], [['13:00', '17:00']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}]
-myuser.update({'name':'华泽文'}, {'$set':{'routeid':myroute.insert(routes)}})
+route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '12:00']], [['13:00', '17:00']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}
+routeID = myuser.find_one({"name":"华泽文"})["routeID"]
+routeID.append(myroute.insert(route))
+myuser.update({'name':'华泽文'}, {'$set':{'routeID':routeID}})
 
 mydetailedroute = mydb.detailedroute
-detailedroutes = [{}]
+detailedroutes = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
+                   'user':[{"userID":myuser.find_one({"name":"华泽文"})["_id"], "agencyID":myagency.find_one({"name":"中国青旅"})["_id"]}, {"userID":myuser.find_one({"name":"曾一帆"})["_id"], "agencyID":myagency.find_one({"name":"北京青旅"})["_id"]}],
+                   'agency':[{"ID":myagency.find_one({"name":"中国青旅"})["_id"], "fare":1200, "vote":1}, {"ID":myagency.find_one({"name":"中国国旅"})["_id"], "fare":1500, "vote":0}, {"ID":myagency.find_one({"name":"北京青旅"})["_id"], "fare":998, "vote":1}]}]
+mydetailedroute.insert(detailedroutes)
 
 mycity = mydb.city
 citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪斯尼"})["_id"]]},
