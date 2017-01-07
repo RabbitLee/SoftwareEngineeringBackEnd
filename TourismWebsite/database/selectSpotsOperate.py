@@ -1,6 +1,6 @@
 # coding=utf-8
 from pymongo import MongoClient
-
+from initialize import spotDistance
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
 
@@ -39,8 +39,28 @@ def getAllSpots(city):
         dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
 
-if __name__ == '__main__':
-    # print(getAllSpots('上海'))
-    a = []
-    a = [110,115]
-    print str(lyc123a[0]) + ","+ str(a[1])
+def getTimeBetweenSpots(spots, city):
+    time = []
+    for spot1 in spots:
+        temp = []
+        for spot2 in spots:
+            if spot1 != spot2:
+                temp.append(spotDistance(spot1, spot2, city + '市'))
+            else:
+                temp.append(u'0')
+        time.append(temp)
+    return time
+
+def saveRoute(userId, shared, date, spots, time):
+    route = {'spots': spots, 'time': time, 'date': date, 'shared': shared}
+    routeId = mydb.route.insert(route)
+    routeID = mydb.user.find_one({"_id": userId})["routeID"]
+    routeID.append(routeId)
+    mydb.user.update({'_id': userId}, {'$set': {'routeID': routeID}})
+    return routeId
+
+# if __name__ == '__main__':
+#     print saveRoute(mydb.user.find_one({"name": "华泽文"})["_id"], 0, ['1/8/2017','1/9/2017'],
+#                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
+#                     [[['13:30', '16:30']], [['9:00', '18:00']]])
+#     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]], "上海")

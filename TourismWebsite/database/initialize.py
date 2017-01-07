@@ -32,10 +32,10 @@ agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'1
 myagency.insert(agencies)
 
 myspot = mydb.spot
-spots = [{'name':'东方明珠', 'mapID':{'LngLat':[121.52063,31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':60, 'level': 0},
+spots = [{'name':'东方明珠', 'mapID':{'LngLat':[121.52063,31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
          {'name':'五角场', 'mapID':{'LngLat':[121.514158, 31.299059], 'exact_name':'五角场商业中心'}, 'visit_time':180, 'level': 0},
-         {'name':'豫园', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':150, 'level': 0},
-         {'name':'迪斯尼', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪斯尼乐园'}, 'visit_time':480, 'level': 1},
+         {'name':'豫园', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':210, 'level': 0},
+         {'name':'迪士尼', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':480, 'level': 1},
          {'name':'佘山', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1}]
 myspot.insert(spots)
 ##myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
@@ -45,19 +45,19 @@ myspot.insert(spots)
 ##myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
 
 myroute = mydb.route
-route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '12:00']], [['13:00', '17:00']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}
+route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '10:00'], ['14:00', '17:00']], [['13:00', '16:30']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}
 routeID = myuser.find_one({"name":"华泽文"})["routeID"]
 routeID.append(myroute.insert(route))
 myuser.update({'name':'华泽文'}, {'$set':{'routeID':routeID}})
 
-mydetailedroute = mydb.detailedroute
-detailedroutes = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
-                   'user':[{"userID":myuser.find_one({"name":"华泽文"})["_id"], "agencyID":myagency.find_one({"name":"中国青旅"})["_id"]}, {"userID":myuser.find_one({"name":"曾一帆"})["_id"], "agencyID":myagency.find_one({"name":"北京青旅"})["_id"]}],
-                   'agency':[{"ID":myagency.find_one({"name":"中国青旅"})["_id"], "fare":1200, "vote":1}, {"ID":myagency.find_one({"name":"中国国旅"})["_id"], "fare":1500, "vote":0}, {"ID":myagency.find_one({"name":"北京青旅"})["_id"], "fare":998, "vote":1}]}]
-mydetailedroute.insert(detailedroutes)
+mydetailroute = mydb.detailedroute
+detailroutes = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
+                   'user':[[myuser.find_one({"name":"华泽文"})["_id"], myagency.find_one({"name":"中国青旅"})["_id"]], [myuser.find_one({"name":"曾一帆"})["_id"], myagency.find_one({"name":"北京青旅"})["_id"]]],
+                   'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["_id"], "fare":1200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["_id"], "fare":1500, "poll":0}, {"agencyID":myagency.find_one({"name":"北京青旅"})["_id"], "fare":998, "poll":1}]}]
+mydetailroute.insert(detailroutes)
 
 mycity = mydb.city
-citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪斯尼"})["_id"]]},
+citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪士尼"})["_id"]]},
          {'name':'南京', 'centerposition':[111, 96], 'spots':[myspot.find_one({"name":"佘山"})["_id"]]},
          {'name':'苏州', 'centerposition':[115, 97], 'spots':[]}]
 mycity.insert(citys)
