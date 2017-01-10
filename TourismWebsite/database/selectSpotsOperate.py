@@ -48,7 +48,7 @@ def getTimeBetweenSpots(spots):
             if spot1 != spot2:
                 temp.append(spotDistance(spot1, spot2, city))
             else:
-                temp.append(u'0')
+                temp.append(0)
         time.append(temp)
     return time
 
@@ -64,4 +64,4 @@ def saveRoute(userId, shared, date, spots, time):
 #     print saveRoute(mydb.user.find_one({"name": "华泽文"})["_id"], 0, ['1/8/2017','1/9/2017'],
 #                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
 #                     [[['13:30', '16:30']], [['9:00', '18:00']]])
-#     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]], "上海")
+#     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])

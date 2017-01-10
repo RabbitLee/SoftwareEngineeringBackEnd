@@ -84,7 +84,7 @@ def spotDistance(origin, destination, city):
     f = urllib.urlopen(url, params)
     content = f.read()
     res = json.loads(content)
-    return res["route"]["transits"][0]["duration"]
+    return int(res["route"]["transits"][0]["duration"])
 
 mydistance = mydb.distance
 for city in mycity.find():
