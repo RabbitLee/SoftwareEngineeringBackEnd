@@ -39,13 +39,14 @@ def getAllSpots(city):
         dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
 
-def getTimeBetweenSpots(spots, city):
+def getTimeBetweenSpots(spots):
+    city = mydb.spot.find_one({"_id":spots[0]})["city"] + '市'
     time = []
     for spot1 in spots:
         temp = []
         for spot2 in spots:
             if spot1 != spot2:
-                temp.append(spotDistance(spot1, spot2, city + '市'))
+                temp.append(spotDistance(spot1, spot2, city))
             else:
                 temp.append(u'0')
         time.append(temp)
