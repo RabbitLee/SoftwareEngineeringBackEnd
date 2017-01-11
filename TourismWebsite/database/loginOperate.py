@@ -9,5 +9,12 @@ def isUserValid(name, password):
         return False
     else:
         return True
+
+def isAgencyValid(name, password):
+    if mydb.agency.find({'name': name, 'password': password}).count() == 0:
+        return False
+    else:
+        return True
+
 if __name__ == '__main__':
-    print(isUserValid('华泽文','hzw'))
+    print(isAgencyValid('中国青旅','zgql'))

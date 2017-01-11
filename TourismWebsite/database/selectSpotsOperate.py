@@ -52,12 +52,12 @@ def getTimeBetweenSpots(spots):
         time.append(temp)
     return time
 
-def saveRoute(userId, shared, date, spots, time):
+def saveRoute(user, shared, date, spots, time):
     route = {'spots': spots, 'time': time, 'date': date, 'shared': shared}
     routeId = mydb.route.insert(route)
-    routeID = mydb.user.find_one({"_id": userId})["routeID"]
+    routeID = mydb.user.find_one({"name": user})["routeID"]
     routeID.append(routeId)
-    mydb.user.update({'_id': userId}, {'$set': {'routeID': routeID}})
+    mydb.user.update({'name': user}, {'$set': {'routeID': routeID}})
     return routeId
 
 # if __name__ == '__main__':
