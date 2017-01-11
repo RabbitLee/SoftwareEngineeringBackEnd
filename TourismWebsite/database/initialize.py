@@ -15,14 +15,15 @@ mydb.distance.remove()
 mydb.route.remove()
 mydb.agency.remove()
 mydb.detailedroute.remove()
+mydb.detailroute.remove()
 mydb.city.remove()
 mydb.province.remove()
 
 myuser = mydb.user
-users = [{'name':'华泽文', 'password':'hzw', 'email':'111', 'phone':'18221037351', 'routeID':[], 'detailedrouteID':[]},
-         {'name':'曾一帆', 'password':'zyf', 'email':'222', 'phone':'18221225358', 'routeID':[], 'detailedrouteID':[]},
-         {'name':'李逸超', 'password':'lyc', 'email':'333', 'phone':'18211111111', 'routeID':[], 'detailedrouteID':[]},
-         {'name':'赵昂悠悠', 'password':'zayy', 'email':'444', 'phone':'18222222222', 'routeID':[], 'detailedrouteID':[]}]
+users = [{'name':'华泽文', 'password':'hzw', 'email':'111', 'phone':'18221037351', 'routeID':[], 'detailrouteID':[]},
+         {'name':'曾一帆', 'password':'zyf', 'email':'222', 'phone':'18221225358', 'routeID':[], 'detailrouteID':[]},
+         {'name':'李逸超', 'password':'lyc', 'email':'333', 'phone':'18211111111', 'routeID':[], 'detailrouteID':[]},
+         {'name':'赵昂悠悠', 'password':'zayy', 'email':'444', 'phone':'18222222222', 'routeID':[], 'detailrouteID':[]}]
 myuser.insert(users)
 
 myagency = mydb.agency
@@ -50,11 +51,17 @@ routeID = myuser.find_one({"name":"华泽文"})["routeID"]
 routeID.append(myroute.insert(route))
 myuser.update({'name':'华泽文'}, {'$set':{'routeID':routeID}})
 
-mydetailroute = mydb.detailedroute
-detailroutes = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
-                   'user':[[myuser.find_one({"name":"华泽文"})["_id"], myagency.find_one({"name":"中国青旅"})["_id"]], [myuser.find_one({"name":"曾一帆"})["_id"], myagency.find_one({"name":"北京青旅"})["_id"]]],
-                   'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["_id"], "fare":1200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["_id"], "fare":1500, "poll":0}, {"agencyID":myagency.find_one({"name":"北京青旅"})["_id"], "fare":998, "poll":1}]}]
-mydetailroute.insert(detailroutes)
+mydetailroute = mydb.detailroute
+detailroute = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
+                   'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国青旅"})["name"]], [myuser.find_one({"name":"曾一帆"})["name"], myagency.find_one({"name":"北京青旅"})["name"]]],
+                   'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["name"], "fare":1200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["name"], "fare":1500, "poll":0}, {"agencyID":myagency.find_one({"name":"北京青旅"})["name"], "fare":998, "poll":1}]}]
+detailrouteID = mydetailroute.insert(detailroute)
+temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
+temp.append(detailrouteID)
+myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':detailrouteID}})
+temp = myuser.find_one({"name":"曾一帆"})["detailrouteID"]
+temp.append(detailrouteID)
+myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':detailrouteID}})
 
 mycity = mydb.city
 citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪士尼"})["_id"]]},
@@ -86,12 +93,12 @@ def spotDistance(origin, destination, city):
     res = json.loads(content)
     return int(res["route"]["transits"][0]["duration"])
 
-mydistance = mydb.distance
-for city in mycity.find():
-    for spot1 in city["spots"]:
-        for spot2 in city["spots"]:
-            if spot1 != spot2:
-                mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
+# mydistance = mydb.distance
+# for city in mycity.find():
+#     for spot1 in city["spots"]:
+#         for spot2 in city["spots"]:
+#             if spot1 != spot2:
+#                 mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
 
 if __name__ == '__main__':
     a = 1
