@@ -32,11 +32,16 @@ agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'1
 myagency.insert(agencies)
 
 myspot = mydb.spot
-spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063,31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
+spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
          {'name':'五角场', 'city':'上海', 'mapID':{'LngLat':[121.514158, 31.299059], 'exact_name':'五角场商业中心'}, 'visit_time':180, 'level': 0},
          {'name':'豫园', 'city':'上海', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':210, 'level': 0},
          {'name':'迪士尼', 'city':'上海', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':480, 'level': 1},
-         {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1}]
+         {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1},
+         {'name':'朱家角', 'city':'上海', 'mapID':{'LngLat':[121.053464, 31.108869], 'exact_name':'朱家角古镇旅游区'}, 'visit_time':360, 'level': 1},
+         {'name':'同济大学', 'city':'上海', 'mapID':{'LngLat':[121.503799, 31.283220], 'exact_name':'同济大学四平路校区'}, 'visit_time':40, 'level': 0},
+         {'name':'上海海洋馆', 'city':'上海', 'mapID':{'LngLat':[121.501550, 31.240499], 'exact_name':'上海海洋馆'}, 'visit_time':120, 'level': 0},
+         {'name':'金茂大厦', 'city':'上海', 'mapID': {'LngLat':[121.504774, 31.234743], 'exact_name':'上海金茂大厦'}, 'visit_time':60, 'level': 1},
+         {'name':'欢乐谷', 'city':'上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name':'上海欢乐谷'},'visit_time':400, 'level': 1}]
 myspot.insert(spots)
 #myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
 #myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
