@@ -38,11 +38,11 @@ spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063,3
          {'name':'迪士尼', 'city':'上海', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':480, 'level': 1},
          {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1}]
 myspot.insert(spots)
-##myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
-##myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
-##myspot.update({'name':'豫园'}, {'$set':{'spotid':str(myspot.find_one({"name":"豫园"})["_id"])}})
-##myspot.update({'name':'迪斯尼'}, {'$set':{'spotid':str(myspot.find_one({"name":"迪斯尼"})["_id"])}})
-##myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
+#myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
+#myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
+#myspot.update({'name':'豫园'}, {'$set':{'spotid':str(myspot.find_one({"name":"豫园"})["_id"])}})
+#myspot.update({'name':'迪斯尼'}, {'$set':{'spotid':str(myspot.find_one({"name":"迪斯尼"})["_id"])}})
+#myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
 
 myroute = mydb.route
 route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"]]], 'time':[[['8:30', '10:00'], ['14:00', '17:00']], [['13:00', '16:30']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}
@@ -92,3 +92,8 @@ for city in mycity.find():
         for spot2 in city["spots"]:
             if spot1 != spot2:
                 mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
+
+if __name__ == '__main__':
+    a = 1
+    if (type(a) == int):
+        print 11
