@@ -41,9 +41,9 @@ def confirm_route():
     date = request.form['date']
     time = request.form['time']
     if (type(saveRoute(user,shared,date,spots,time)) == bson.objectid.ObjectId):
-        return jsonify(success=True)
+        return {'success':True}
     else:
-        return jsonify(success=False)
+        return {'success':False}
 
 
 
