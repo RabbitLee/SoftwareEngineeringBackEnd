@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+import json
 import bson
 import sys, os
 import json
@@ -65,11 +66,15 @@ def submit_selected_spots():
 
 @selectSpots.route('/confirmSelectedSpots', methods=['POST'])
 def confirm_route():
-    user = request.form['user']
-    shared = request.form['shared']
-    spots = request.form['spots_id']
-    date = request.form['date']
-    time = request.form['time']
+    data = request.form['data']
+    data = json.loads(data)
+
+    user = data['user']
+    shared = data['shared']
+    date = data['date']
+    spots = data['spots']
+    time = data['time']
+
     if (type(saveRoute(user,shared,date,spots,time)) == bson.objectid.ObjectId):
         return {'success':True}
     else:
