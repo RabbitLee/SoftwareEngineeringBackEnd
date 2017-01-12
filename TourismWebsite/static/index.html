@@ -12,10 +12,15 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/selectSpots/getAllSpots",
-        data: {
-            cityName: '上海'
-        },
+        url: "http://127.0.0.1:5000/selectSpots/submitSelectedSpots",
+        data: JSON.stringify({
+            date: ['01/01/2017', '01/03/2017'],
+            spots_id: ['5877149aa7c709a8e057e9ea', '5877149aa7c709a8e057e9eb', '5877149aa7c709a8e057e9ec', '5877149aa7c709a8e057e9ed', '5877149aa7c709a8e057e9ef', '5877149aa7c709a8e057e9f0', '5877149aa7c709a8e057e9f1', '5877149aa7c709a8e057e9f2', '5877149aa7c709a8e057e9f3']
+        }),
+//        url: "http://127.0.0.1:5000/selectSpots/getAllSpots",
+//        data: {
+//            cityName: "上海"
+//        },
         success: function (data) {
             console.log(data);
         }

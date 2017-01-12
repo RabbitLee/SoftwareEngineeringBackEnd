@@ -20,4 +20,4 @@ app.register_blueprint(selectSpots, url_prefix='/selectSpots')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
