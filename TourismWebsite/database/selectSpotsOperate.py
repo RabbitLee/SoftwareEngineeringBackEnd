@@ -74,7 +74,7 @@ def generateBestRoute(days, spots_id):
         if num == n:
             total_time = calcuate_time(route)
             # global best_route, best_time
-            print (total_time < best_route['time'])
+            # print (total_time < best_route['time'])
             if total_time < best_route['time']:
                 # best_route['route'] = route[:]
                 best_route['route'] = copy.deepcopy(route)
@@ -94,11 +94,12 @@ def generateBestRoute(days, spots_id):
 
     distributeSpots(route, 0)
     ans = []
-    # for i in range(days):
-    #     ans.append([])
-    #     for j in range(len(best_route)):
-    #         ans[i].append(spots_id[best_route[i][j]])
-    # return ans
+    for i in range(days):
+        ans.append([])
+        for j in range(len(best_route['route'][i])):
+            # print (i, j, spots_id[best_route['route'][1][0]])
+            ans[i].append(spots_id[best_route['route'][i][j]])
+    return ans
 
 
 def saveRoute(user, shared, date, spots, time):

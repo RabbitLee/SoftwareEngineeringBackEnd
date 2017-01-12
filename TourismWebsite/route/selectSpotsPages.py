@@ -31,8 +31,16 @@ def get_all_spots():
 
 @selectSpots.route('/submitSelectedSpots')
 def submit_selected_spots():
+    date = request.form['date']
     spots_id = request.form['spots_id']
-    return 1
+    days = int(date['end_date'][3:5]) - int(date['start_date'][3:5])
+    spots_id = generateBestRoute(days, spots_id)
+    time = []
+    for i in range(days):
+        time.append([])
+        for j in range(len(spots_id[i])):
+            if j == 0:
+                time[i].append([0, ])
 
 @selectSpots.route('/confirmSelectedSpots', methods=['POST'])
 def confirm_route():
