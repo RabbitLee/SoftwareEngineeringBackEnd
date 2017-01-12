@@ -12,28 +12,6 @@ mydb = client.mydb
 mydb.user.remove()
 mydb.spot.remove()
 mydb.distance.remove()
-import urllib,json
-from urllib import urlencode
-from pymongo import MongoClient
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-client = MongoClient('localhost', 27017)
-mydb = client.mydb
-
-mydb.user.remove()
-mydb.spot.remove()
-mydb.distance.remove()
-mydb.route.remove()
-mydb.agency.remove()
-mydb.detailedroute.remove()
-mydb.detailroute.remove()
-mydb.city.remove()
-mydb.province.remove()
-
-myuser = mydb.user
-users = [{'name':'华泽文', 'password':'hzw', 'email'
 mydb.route.remove()
 mydb.agency.remove()
 mydb.detailedroute.remove()
@@ -51,7 +29,8 @@ myuser.insert(users)
 myagency = mydb.agency
 agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'11111111'},
             {'name':'中国国旅', 'password':'zggl', 'email':'666', 'phone':'22222222'},
-            {'name':'北京青旅', 'password':'bjql', 'email':'777', 'phone':'33333333'}]
+            {'name':'北京青旅', 'password':'bjql', 'email':'777', 'phone':'33333333'},
+            {'name': '中旅国际', 'password': 'zlgj', 'email': '888', 'phone': '44444444'}]
 myagency.insert(agencies)
 
 myspot = mydb.spot
@@ -91,9 +70,13 @@ temp.append(detailrouteID)
 myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':detailrouteID}})
 
 mycity = mydb.city
-citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"五角场"})["_id"], myspot.find_one({"name":"豫园"})["_id"], myspot.find_one({"name":"迪士尼"})["_id"]]},
-         {'name':'南京', 'centerposition':[111, 96], 'spots':[myspot.find_one({"name":"佘山"})["_id"]]},
+citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[]},
+         {'name':'南京', 'centerposition':[111, 96], 'spots':[]},
          {'name':'苏州', 'centerposition':[115, 97], 'spots':[]}]
+for city in citys:
+    for spot in myspot.find():
+        if spot["city"] == city["name"]:
+            city["spots"].append(spot["_id"])
 mycity.insert(citys)
 
 myprovince = mydb.province
