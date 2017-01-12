@@ -4,6 +4,9 @@ from bson.objectid import ObjectId
 from flask import jsonify
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def findCreator(detailroute):
     for user in mydb.user.find():

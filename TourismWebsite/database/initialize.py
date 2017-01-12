@@ -42,7 +42,7 @@ def getLngLat(address, city):
         "address": address,
         "city": city,
         "output": "JSON",
-        "key": "a33b52f76e71d0efdf120c6a0997c380",
+        "key": "98ecdfe6cd8cd1f4d4a119579f0ed3cf",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
