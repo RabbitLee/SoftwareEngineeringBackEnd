@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import urllib,json
-from urllib import urlencode
+import re
+##from urllib import urlencode
 from pymongo import MongoClient
 import sys
 reload(sys)
@@ -32,6 +33,22 @@ agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'1
             {'name':'北京青旅', 'password':'bjql', 'email':'777', 'phone':'33333333'},
             {'name': '中旅国际', 'password': 'zlgj', 'email': '888', 'phone': '44444444'}]
 myagency.insert(agencies)
+
+# s = []
+#
+# def getHtml(url):
+#     page = urllib.urlopen(url)
+#     html = page.read()
+#     return html
+#
+# def getImg(html):
+#     reg = r'A 上海市景点 +? .<br>'
+#     imgre = re.compile(reg)
+#     imglist = re.findall(imgre,html)
+#     return imglist
+#
+# html = getHtml("http://www.cnblogs.com/oucbl/p/6141405.html")
+# print getImg(html)
 
 myspot = mydb.spot
 spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
@@ -84,24 +101,7 @@ provinces = [{'name':'上海', 'citys':['上海']},
              {'name':'江苏', 'citys':['南京', '苏州']}]
 myprovince.insert(provinces)
 
-def spotDistance(origin, destination, city):
-    url = "http://restapi.amap.com/v3/direction/transit/integrated?"
-    orilng = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][0]
-    orilat = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][1]
-    deslng = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][0]
-    deslat = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][1]
-    params = {
-        "origin": str(orilng) + ','+ str(orilat),
-        "destination": str(deslng) + ','+ str(deslat),
-        "city": city,
-        "output": "json",
-        "key": "a33b52f76e71d0efdf120c6a0997c380",
-    }
-    params = urlencode(params)
-    f = urllib.urlopen(url, params)
-    content = f.read()
-    res = json.loads(content)
-    return int(res["route"]["transits"][0]["duration"])
+
 
 # mydistance = mydb.distance
 # for city in mycity.find():
@@ -111,6 +111,6 @@ def spotDistance(origin, destination, city):
 #                 mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
 
 if __name__ == '__main__':
-    a = 1
-    if (type(a) == int):
-        print 11
+     a = 1
+#     if (type(a) == int):
+#         print 11
