@@ -9,6 +9,9 @@ def index():
 from route.loginPages import login
 app.register_blueprint(login, url_prefix='/login')
 
+from route.loginPages import agencyLogin
+app.register_blueprint(agencyLogin, url_prefix='/agencyLogin')
+
 from route.registerPages import registers
 app.register_blueprint(registers, url_prefix='/register')
 
