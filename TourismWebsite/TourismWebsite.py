@@ -18,6 +18,8 @@ app.register_blueprint(registers, url_prefix='/register')
 from route.selectSpotsPages import selectSpots
 app.register_blueprint(selectSpots, url_prefix='/selectSpots')
 
+from route.squarePages import square
+app.register_blueprint(square, url_prefix='/square')
 
 if __name__ == '__main__':
     app.run()
