@@ -12,6 +12,28 @@ mydb = client.mydb
 mydb.user.remove()
 mydb.spot.remove()
 mydb.distance.remove()
+import urllib,json
+from urllib import urlencode
+from pymongo import MongoClient
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+client = MongoClient('localhost', 27017)
+mydb = client.mydb
+
+mydb.user.remove()
+mydb.spot.remove()
+mydb.distance.remove()
+mydb.route.remove()
+mydb.agency.remove()
+mydb.detailedroute.remove()
+mydb.detailroute.remove()
+mydb.city.remove()
+mydb.province.remove()
+
+myuser = mydb.user
+users = [{'name':'华泽文', 'password':'hzw', 'email'
 mydb.route.remove()
 mydb.agency.remove()
 mydb.detailedroute.remove()
