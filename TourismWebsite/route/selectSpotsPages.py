@@ -36,11 +36,25 @@ def submit_selected_spots():
     days = int(date['end_date'][3:5]) - int(date['start_date'][3:5])
     spots_id = generateBestRoute(days, spots_id)
     time = []
+    name = []
+    corrdinate = []
+    time_between_spots = getTimeBetweenSpots(spots_id)
     for i in range(days):
         time.append([])
+        name.append([])
+        corrdinate.append()
         for j in range(len(spots_id[i])):
+            city = getSpotInfo(spots_id[i][j])
             if j == 0:
-                time[i].append([0, ])
+                time[i].append([0, city['visit_time']])
+            else:
+                start_time = time[i][j-1][1]+time_between_spots[spots_id[i][j-1]][spots_id[i][j]];
+                end_time = start_time + city['visit_time']
+                time[i].append([start_time, end_time])
+            name[i].append(city['name'])
+            corrdinate[i].append(city['corrdinate'])
+    return jsonify(spots_id=spots_id, time=time, name=name, corrdinate=corrdinate)
+
 
 @selectSpots.route('/confirmSelectedSpots', methods=['POST'])
 def confirm_route():

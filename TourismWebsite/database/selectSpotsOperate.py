@@ -1,6 +1,9 @@
 # coding=utf-8
 from pymongo import MongoClient
-from initialize import spotDistance
+##from initialize import spotDistance
+import urllib,json
+from bson.objectid import ObjectId
+from urllib import urlencode
 import copy
 # from math import ceil
 client = MongoClient('localhost', 27017)
@@ -40,6 +43,25 @@ def getAllSpots(city):
         dict1["coordinate"].append(mydb.spot.find_one({"_id": spot})["mapID"]["LngLat"])
         dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
+
+def spotDistance(origin, destination, city):
+    url = "http://restapi.amap.com/v3/direction/transit/integrated?"
+    orilng = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][0]
+    orilat = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][1]
+    deslng = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][0]
+    deslat = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][1]
+    params = {
+        "origin": str(orilng) + ','+ str(orilat),
+        "destination": str(deslng) + ','+ str(deslat),
+        "city": city,
+        "output": "json",
+        "key": "a33b52f76e71d0efdf120c6a0997c380",
+    }
+    params = urlencode(params)
+    f = urllib.urlopen(url, params)
+    content = f.read()
+    res = json.loads(content)
+    return int(res["route"]["transits"][0]["duration"])
 
 def getTimeBetweenSpots(spots):
     city = mydb.spot.find_one({"_id":spots[0]})["city"] + '市'
@@ -101,7 +123,6 @@ def generateBestRoute(days, spots_id):
             ans[i].append(spots_id[best_route['route'][i][j]])
     return ans
 
-
 def saveRoute(user, shared, date, spots, time):
     route = {'spots': spots, 'time': time, 'date': date, 'shared': shared}
     routeId = mydb.route.insert(route)
@@ -110,9 +131,18 @@ def saveRoute(user, shared, date, spots, time):
     mydb.user.update({'name': user}, {'$set': {'routeID': routeID}})
     return routeId
 
+def getSpotInfo(spotId):
+    spotinfo = mydb.spot.find_one({"_id": ObjectId(spotId)})
+    dict = {}
+    dict["name"] = spotinfo["name"]
+    dict["coordinate"] = spotinfo["mapID"]["LngLat"]
+    dict["visit_time"] = spotinfo["visit_time"]
+    return dict
+
 if __name__ == '__main__':
 #     print saveRoute(mydb.user.find_one({"name": "华泽文"})["_id"], 0, ['1/8/2017','1/9/2017'],
 #                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
 #                     [[['13:30', '16:30']], [['9:00', '18:00']]])
 #     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
-    print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+#     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+    print getSpotInfo("5877051fd9eca40fec0488d7")
