@@ -4,6 +4,7 @@ from flask import jsonify
 import json
 import bson
 import sys, os
+import json
 sys.path.append(os.path.dirname(__file__)+'/../database/')
 from database.selectSpotsOperate import *
 
@@ -27,14 +28,20 @@ def get_all_cities():
 
 @selectSpots.route('/getAllSpots', methods=['POST'])
 def get_all_spots():
+    print (request.form)
     cityName = request.form['cityName']
     return jsonify(getAllSpots(cityName))
 
-@selectSpots.route('/submitSelectedSpots')
+@selectSpots.route('/submitSelectedSpots', methods=['POST'])
 def submit_selected_spots():
+    temp = request.form['data']
+    temp = json.loads(temp)
+    print (temp['date'], type(temp))
     date = request.form['date']
     spots_id = request.form['spots_id']
     days = int(date['end_date'][3:5]) - int(date['start_date'][3:5])
+    # print (date)
+    # print (spots_id)
     spots_id = generateBestRoute(days, spots_id)
     time = []
     name = []
