@@ -148,4 +148,14 @@ if __name__ == '__main__':
 #                     [[['13:30', '16:30']], [['9:00', '18:00']]])
     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
 #     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+
     #print getSpotInfo("5877051fd9eca40fec0488d7")
+
+#     print getSpotInfo("5877051fd9eca40fec0488d7")
+    temp = getAllSpots('上海')
+    print (temp)
+    ans = []
+    for i in range(len(temp['spots'])):
+        ans.append(temp['spots'][i]['spotid'][0])
+    print ans
+

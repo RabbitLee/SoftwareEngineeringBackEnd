@@ -12,9 +12,11 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/selectSpots/getAllSpots",
+        url: "http://127.0.0.1:5000/square/bidForRoute",
         data: {
-            cityName: '上海'
+            'agency': '中国国旅',
+            'bidFor': '5877290de2e6ca21f84b0de0',
+            'fare': '1500'
         },
         success: function (data) {
             console.log(data);

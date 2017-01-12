@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+import json
 import sys, os
 sys.path.append(os.path.dirname(__file__)+'/../database/')
 from database.squareOperate import *
@@ -10,14 +11,14 @@ square = Blueprint('square', __name__)
 @square.route('/showAllRoute', methods=['POST'])
 def show_all_route():
     list = []
-    list.append(getAllRoutes)
-    return list
+    list = getAllRoutes()
+    return json.dumps(list)
 
 @square.route('/getSelectedRoute', methods=['POST'])
 def get_selected_route():
     id = request.form['detailRouteID']
     user = request.form['user']
-    return getSelectedRoute(id,user)
+    return jsonify(getSelectedRoute(id,user))
 
 @square.route('/voteRoute', methods=['POST'])
 def vote_route():
