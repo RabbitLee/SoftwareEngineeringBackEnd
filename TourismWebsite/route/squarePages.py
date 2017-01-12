@@ -9,7 +9,9 @@ square = Blueprint('square', __name__)
 
 @square.route('/showAllRoute', methods=['POST'])
 def show_all_route():
-   return getAllRoutes()
+    list = []
+    list.append(getAllRoutes)
+    return list
 
 @square.route('/getSelectedRoute', methods=['POST'])
 def get_selected_route():

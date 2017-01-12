@@ -34,6 +34,7 @@ def submit_selected_spots():
     spots_id = request.form['spots_id']
     return 1
 
+@selectSpots.route('/confirmSelectedSpots', methods=['POST'])
 def confirm_route():
     user = request.form['user']
     shared = request.form['shared']
