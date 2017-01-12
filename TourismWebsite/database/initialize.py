@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 import urllib,json
+from urllib import urlencode
 import re
+import random
 ##from urllib import urlencode
 from pymongo import MongoClient
 import sys
@@ -34,23 +36,56 @@ agencies = [{'name':'中国青旅', 'password':'zgql', 'email':'555', 'phone':'1
             {'name': '中旅国际', 'password': 'zlgj', 'email': '888', 'phone': '44444444'}]
 myagency.insert(agencies)
 
-# s = []
-#
-# def getHtml(url):
-#     page = urllib.urlopen(url)
-#     html = page.read()
-#     return html
-#
-# def getImg(html):
-#     reg = r'A 上海市景点 +? .<br>'
-#     imgre = re.compile(reg)
-#     imglist = re.findall(imgre,html)
-#     return imglist
-#
-# html = getHtml("http://www.cnblogs.com/oucbl/p/6141405.html")
-# print getImg(html)
+def getLngLat(address, city):
+    url = "http://restapi.amap.com/v3/geocode/geo?"
+    params = {
+        "address": address,
+        "city": city,
+        "output": "JSON",
+        "key": "a33b52f76e71d0efdf120c6a0997c380",
+    }
+    params = urlencode(params)
+    f = urllib.urlopen(url, params)
+    content = f.read()
+    res = json.loads(content)
+    if res['count'] == '0':
+        return False
+    else:
+        return (res['geocodes'][0]['location'])
+
+def initializeSpotsByCity(city):
+    def getHtml(url):
+        page = urllib.urlopen(url)
+        html = page.read()
+        return html
+    def getImg(html):
+        reg = r'<a\s+href="http://www.tuniu.com.g' + city + r'/whole-sh-0/list-d.+?-h0-i-j0_0/"\s+rel="nofollow">\s+(.+?)\s+</a>'
+        #reg = r'<a href="/poi/.+?\.html" target="_blank" title="(.+?)\">'
+        #r'A 上海市景点 (.+?)\<br>'
+        imgre = re.compile(reg)
+        imglist = re.findall(imgre, html)
+        return imglist
+    html = getHtml("http://www.tuniu.com/g" + city + "/whole-sh-0/list-h0-j0_0/")
+    return getImg(html)
+
+def randlevel():
+    if random.randint(0, 5) == 0:
+        return 1
+    else:
+        return 0
 
 myspot = mydb.spot
+
+citys = [["三亚", "906"],["海口","902"],["重庆","300"]]
+spots = []
+for city in citys:
+    s = initializeSpotsByCity(city[1])
+    for i in s:
+        LngLat = getLngLat(i, city[0])
+        if LngLat != False and not ("酒店" in i):
+            spots.append({'name': i, 'city': city[0], 'mapID': {'LngLat': LngLat}, 'visit_time': 30 * random.randint(2, 12),'level': randlevel()})
+myspot.insert(spots)
+
 spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
          {'name':'五角场', 'city':'上海', 'mapID':{'LngLat':[121.514158, 31.299059], 'exact_name':'五角场商业中心'}, 'visit_time':180, 'level': 0},
          {'name':'豫园', 'city':'上海', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':210, 'level': 0},
@@ -89,7 +124,10 @@ myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':detailrouteID}})
 mycity = mydb.city
 citys = [{'name':'上海', 'centerposition':[110, 98], 'spots':[]},
          {'name':'南京', 'centerposition':[111, 96], 'spots':[]},
-         {'name':'苏州', 'centerposition':[115, 97], 'spots':[]}]
+         {'name':'重庆', 'centerposition':[111, 96], 'spots':[]},
+         {'name':'苏州', 'centerposition':[115, 97], 'spots':[]},
+         {'name':'三亚', 'centerposition':[115, 97], 'spots':[]},
+         {'name':'海口', 'centerposition': [115, 97], 'spots':[]}]
 for city in citys:
     for spot in myspot.find():
         if spot["city"] == city["name"]:
@@ -98,6 +136,8 @@ mycity.insert(citys)
 
 myprovince = mydb.province
 provinces = [{'name':'上海', 'citys':['上海']},
+             {'name':'重庆', 'citys':['重庆']},
+             {'name':'海南', 'citys':['三亚', '海口']},
              {'name':'江苏', 'citys':['南京', '苏州']}]
 myprovince.insert(provinces)
 
