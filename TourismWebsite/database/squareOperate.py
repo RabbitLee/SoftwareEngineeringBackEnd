@@ -9,8 +9,9 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def findCreator(detailroute):
+    route = mydb.detailtoute.find_one({"_id":detailroute})["routeID"]
     for user in mydb.user.find():
-        if detailroute in user["detailrouteID"]:
+        if route in user["routeID"]:
             return user["name"]
     return False
 
@@ -78,6 +79,9 @@ def joinRoute(detailRoute, user):
     mydb.user.find_one({"name":user})["detailedrouteID"] = detailRoute
     users.append([user, False])
     mydb.detailroute.update({'_id':detailRoute}, {'$set':{'user':users}})
+    temp = mydb.user.find_one({"name": user})["detailrouteID"]
+    temp.append(detailRoute)
+    mydb.user.update({'name': user}, {'$set': {'detailrouteID': detailRoute}})
     return jsonify(success=True)
 
 def voteRoute(detailRoute, user, voteFor):

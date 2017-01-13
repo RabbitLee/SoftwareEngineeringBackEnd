@@ -122,7 +122,10 @@ def saveRoute(user, shared, date, spots, time):
     routeID.append(routeId)
     mydb.user.update({'name': user}, {'$set': {'routeID': routeID}})
     if shared == 1:
-        mydb.detailroute.insert({'routeID': routeId, 'user': [[user, "False", "未支付"]], 'agency': []})
+        detailrouteID = mydb.detailroute.insert({'routeID': routeId, 'user': [[user, "False", "未支付"]], 'agency': []})
+        temp = mydb.user.find_one({"name": user})["detailrouteID"]
+        temp.append(detailrouteID)
+        mydb.user.update({'name': user}, {'$set': {'detailrouteID': detailrouteID}})
     return routeId
 
 def getSpotInfo(spotId):
@@ -144,9 +147,9 @@ if __name__ == '__main__':
     #print getSpotInfo("5877051fd9eca40fec0488d7")
 
 #     print getSpotInfo("5877051fd9eca40fec0488d7")
-#     temp = getAllSpots('上海')
+     temp = getAllSpots('上海')
 
-#     print (temp)
+     print (temp)
 
 #     ans = []
 #     for i in range(len(temp['spots'])):
