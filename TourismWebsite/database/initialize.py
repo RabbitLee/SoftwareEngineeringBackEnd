@@ -78,12 +78,20 @@ myspot = mydb.spot
 
 citys = [["三亚", "906"],["海口","902"],["重庆","300"]]
 spots = []
+
 for city in citys:
     s = initializeSpotsByCity(city[1])
+    n = 0
     for i in s:
+        if n >= 15:
+            break
         LngLat = getLngLat(i, city[0])
         if LngLat != False and not ("酒店" in i):
+            LngLat = LngLat.split(',')
+            LngLat[0] = float(LngLat[0])
+            LngLat[1] = float(LngLat[1])
             spots.append({'name': i, 'city': city[0], 'mapID': {'LngLat': LngLat}, 'visit_time': 30 * random.randint(2, 12),'level': randlevel()})
+            n += 1
 myspot.insert(spots)
 
 spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
@@ -96,6 +104,12 @@ spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 
          {'name':'上海海洋馆', 'city':'上海', 'mapID':{'LngLat':[121.501550, 31.240499], 'exact_name':'上海海洋馆'}, 'visit_time':120, 'level': 0},
          {'name':'金茂大厦', 'city':'上海', 'mapID': {'LngLat':[121.504774, 31.234743], 'exact_name':'上海金茂大厦'}, 'visit_time':60, 'level': 1},
          {'name':'欢乐谷', 'city':'上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name':'上海欢乐谷'},'visit_time':400, 'level': 1}]
+         # {'name': '朱家角', 'city': '上海', 'mapID': {'LngLat': [121.053464, 31.108869], 'exact_name': '朱家角古镇旅游区'}, 'visit_time': 360, 'level': 1},
+         # {'name': '同济大学', 'city': '上海', 'mapID': {'LngLat': [121.503799, 31.283220], 'exact_name': '同济大学四平路校区'}, 'visit_time': 40, 'level': 0},
+         # {'name': '上海海洋馆', 'city': '上海', 'mapID': {'LngLat': [121.501550, 31.240499], 'exact_name': '上海海洋馆'}, 'visit_time': 120, 'level': 0},
+         # {'name': '金茂大厦', 'city': '上海', 'mapID': {'LngLat': [121.504774, 31.234743], 'exact_name': '上海金茂大厦'}, 'visit_time': 60, 'level': 1},
+         # {'name': '欢乐谷', 'city': '上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name': '上海欢乐谷'}, 'visit_time': 400, 'level': 1}]
+
 myspot.insert(spots)
 #myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
 #myspot.update({'name':'五角场'}, {'$set':{'spotid':str(myspot.find_one({"name":"五角场"})["_id"])}})
@@ -140,15 +154,43 @@ provinces = [{'name':'上海', 'citys':['上海']},
              {'name':'海南', 'citys':['三亚', '海口']},
              {'name':'江苏', 'citys':['南京', '苏州']}]
 myprovince.insert(provinces)
+global z
+z = 0
+def spotDistance(origin, destination, city):
+    url = "http://restapi.amap.com/v3/direction/transit/integrated?"
+    orilng = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][0]
+    orilat = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][1]
+    deslng = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][0]
+    deslat = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][1]
+    params = {
+        "origin": str(orilng) + ','+ str(orilat),
+        "destination": str(deslng) + ','+ str(deslat),
+        "city": city,
+        "output": "JSON",
+        "key": "a33b52f76e71d0efdf120c6a0997c380",
+    }
+    params = urlencode(params)
+    f = urllib.urlopen(url, params)
+    content = f.read()
+    res = json.loads(content)
+    # global z
+    # z += 1
+    # if z >= 70:
+    #     print res["route"]
+    # print z
+    # if res["route"]["transits"] == []:
+    #     a = int(res["route"]["distance"])/1.0
+    #     print a
+    #     return a
+    return int(res["route"]["transits"][0]["duration"])
 
-
-
-# mydistance = mydb.distance
-# for city in mycity.find():
-#     for spot1 in city["spots"]:
-#         for spot2 in city["spots"]:
-#             if spot1 != spot2:
-#                 mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
+mydistance = mydb.distance
+for city in mycity.find():
+    if city["name"] == "上海":
+        for spot1 in city["spots"]:
+            for spot2 in city["spots"]:
+                if spot1 != spot2:
+                    mydistance.insert({'origin': spot1, 'destination': spot2, 'distance': spotDistance(spot1, spot2, city["name"] + '市')})
 
 if __name__ == '__main__':
      a = 1

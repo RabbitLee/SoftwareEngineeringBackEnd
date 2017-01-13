@@ -47,25 +47,6 @@ def getAllSpots(city):
         dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
 
-def spotDistance(origin, destination, city):
-    url = "http://restapi.amap.com/v3/direction/transit/integrated?"
-    orilng = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][0]
-    orilat = mydb.spot.find_one({"_id": origin})["mapID"]["LngLat"][1]
-    deslng = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][0]
-    deslat = mydb.spot.find_one({"_id": destination})["mapID"]["LngLat"][1]
-    params = {
-        "origin": str(orilng) + ','+ str(orilat),
-        "destination": str(deslng) + ','+ str(deslat),
-        "city": city,
-        "output": "json",
-        "key": "98ecdfe6cd8cd1f4d4a119579f0ed3cf",
-    }
-    params = urlencode(params)
-    f = urllib.urlopen(url, params)
-    content = f.read()
-    res = json.loads(content)
-    return int(res["route"]["transits"][0]["duration"])
-
 def getTimeBetweenSpots(spots):
     if type(spots[0]) != ObjectId:
         for i in range(len(spots)):
@@ -76,7 +57,7 @@ def getTimeBetweenSpots(spots):
         temp = []
         for spot2 in spots:
             if spot1 != spot2:
-                temp.append(spotDistance(spot1, spot2, city))
+                temp.append(mydb.distance.find_one({"origin":spot1,"destination":spot2})["distance"])
             else:
                 temp.append(0)
         time.append(temp)
@@ -135,6 +116,8 @@ def saveRoute(user, shared, date, spots, time):
     routeID = mydb.user.find_one({"name": user})["routeID"]
     routeID.append(routeId)
     mydb.user.update({'name': user}, {'$set': {'routeID': routeID}})
+    if shared == 1:
+        mydb.detailroute.insert({'routeID': routeId, 'user': [[user, "False"]], 'agency': []})
     return routeId
 
 def getSpotInfo(spotId):
@@ -146,19 +129,19 @@ def getSpotInfo(spotId):
     return dict
 
 if __name__ == '__main__':
-#     print saveRoute(mydb.user.find_one({"name": "华泽文"})["_id"], 0, ['1/8/2017','1/9/2017'],
-#                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
-#                     [[['13:30', '16:30']], [['9:00', '18:00']]])
-#     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+     print saveRoute(mydb.user.find_one({"name": "华泽文"})["name"], 1, ['1/8/2017','1/9/2017'],
+                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
+                     [[['13:30', '16:30']], [['9:00', '18:00']]])
+     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
 #     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
 
     #print getSpotInfo("5877051fd9eca40fec0488d7")
 
 #     print getSpotInfo("5877051fd9eca40fec0488d7")
-    temp = getAllSpots('上海')
-    print (temp)
-    ans = []
-    for i in range(len(temp['spots'])):
-        ans.append(temp['spots'][i]['spotid'][0])
-    print ans
+#     temp = getAllSpots('上海')
+#     print (temp)
+#     ans = []
+#     for i in range(len(temp['spots'])):
+#         ans.append(temp['spots'][i]['spotid'][0])
+#     print ans
 
