@@ -11,6 +11,7 @@ import copy
 # from math import ceil
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
+import datetime
 
 def getAllProvinces():
     dict = {}
@@ -58,7 +59,7 @@ def spotDistance(origin, destination, city):
         "destination": str(deslng) + ','+ str(deslat),
         "city": city,
         "output": "json",
-        "key": "98ecdfe6cd8cd1f4d4a119579f0ed3cf",
+        "key": "a33b52f76e71d0efdf120c6a0997c380",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
@@ -146,6 +147,7 @@ def getSpotInfo(spotId):
     return dict
 
 if __name__ == '__main__':
+    print (getTimeBetweenSpots(['58790674a7c709464a5ca78d', '58790674a7c709464a5ca78e', '58790674a7c709464a5ca78f']))
 #     print saveRoute(mydb.user.find_one({"name": "华泽文"})["_id"], 0, ['1/8/2017','1/9/2017'],
 #                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
 #                     [[['13:30', '16:30']], [['9:00', '18:00']]])
@@ -155,10 +157,10 @@ if __name__ == '__main__':
     #print getSpotInfo("5877051fd9eca40fec0488d7")
 
 #     print getSpotInfo("5877051fd9eca40fec0488d7")
-    temp = getAllSpots('上海')
-    print (temp)
-    ans = []
-    for i in range(len(temp['spots'])):
-        ans.append(temp['spots'][i]['spotid'][0])
-    print ans
+#     temp = getAllSpots('上海')
+#     # print (temp)
+#     ans = []
+#     for i in range(len(temp['spots'])):
+#         ans.append(temp['spots'][i]['spotid'][0])
+#     print ans
 
