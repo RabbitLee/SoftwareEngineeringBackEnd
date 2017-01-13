@@ -37,6 +37,12 @@ def findmyVote(votes, user):
             return vote[1]
     return False
 
+def findmyState(states, user):
+    for state in states:
+        if state[0] == user:
+            return state[2]
+    return False
+
 def getSelectedRoute(detailRoute, user):
     detailRoute = ObjectId(detailRoute)
     # user = unicode(user, "utf8")
@@ -48,7 +54,7 @@ def getSelectedRoute(detailRoute, user):
     dict["city"] = mydb.spot.find_one({"_id": routeinfo["spots"][0][0]})["city"]
     dict["participants"] = mydb.detailroute.find_one({"_id":detailRoute})["user"]
     dict["myVote"] = findmyVote(dict["participants"], user)
-    dict["state"] = mydb.detailroute.find_one({"_id": detailRoute})["state"]
+    dict["paymentState"] = findmyState(dict["participants"], user)
     dict["agency"] = mydb.detailroute.find_one({"_id":detailRoute})["agency"]
     dict["spot_id"] = routeinfo["spots"]
     dict["time"] = routeinfo["time"]
@@ -77,7 +83,7 @@ def joinRoute(detailRoute, user):
         if u[0] == user:
             return jsonify(success=False)
     mydb.user.find_one({"name":user})["detailedrouteID"] = detailRoute
-    users.append([user, False])
+    users.append([user, "False", "未支付"])
     mydb.detailroute.update({'_id':detailRoute}, {'$set':{'user':users}})
     temp = mydb.user.find_one({"name": user})["detailrouteID"]
     temp.append(detailRoute)
@@ -90,6 +96,12 @@ def voteRoute(detailRoute, user, voteFor):
     voteFor = voteFor
     users = mydb.detailroute.find_one({'_id':detailRoute})["user"]
     agencies = mydb.detailroute.find_one({'_id':detailRoute})["agency"]
+    for u in users:
+        if u[0] == user:
+            if u[1] != "False":
+                for a in agencies:
+                    if a["agencyID"] == u[1]:
+                        a["poll"] -= 1
     for u in users:
         if u[0] == user:
             u[1] = voteFor
