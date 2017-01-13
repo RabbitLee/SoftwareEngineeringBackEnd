@@ -11,6 +11,7 @@ import copy
 # from math import ceil
 client = MongoClient('localhost', 27017)
 mydb = client.mydb
+import datetime
 
 def getAllProvinces():
     dict = {}
@@ -46,6 +47,7 @@ def getAllSpots(city):
         dict1["coordinate"].append(mydb.spot.find_one({"_id": spot})["mapID"]["LngLat"])
         dict1["level"].append(mydb.spot.find_one({"_id": spot})["level"])
     return dict
+
 
 def getTimeBetweenSpots(spots):
     if type(spots[0]) != ObjectId:
@@ -133,13 +135,16 @@ if __name__ == '__main__':
                      [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
                      [[['13:30', '16:30']], [['9:00', '18:00']]])
      print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+
 #     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
 
     #print getSpotInfo("5877051fd9eca40fec0488d7")
 
 #     print getSpotInfo("5877051fd9eca40fec0488d7")
 #     temp = getAllSpots('上海')
+
 #     print (temp)
+
 #     ans = []
 #     for i in range(len(temp['spots'])):
 #         ans.append(temp['spots'][i]['spotid'][0])
