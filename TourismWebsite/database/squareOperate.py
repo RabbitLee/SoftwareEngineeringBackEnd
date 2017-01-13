@@ -9,7 +9,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def findCreator(detailroute):
-    route = mydb.detailtoute.find_one({"_id":detailroute})["routeID"]
+    route = mydb.detailroute.find_one({"_id":detailroute})["routeID"]
     for user in mydb.user.find():
         if route in user["routeID"]:
             return user["name"]

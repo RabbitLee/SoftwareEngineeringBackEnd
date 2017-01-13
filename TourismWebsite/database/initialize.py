@@ -118,7 +118,7 @@ myspot.insert(spots)
 #myspot.update({'name':'佘山'}, {'$set':{'spotid':str(myspot.find_one({"name":"佘山"})["_id"])}})
 
 myroute = mydb.route
-route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"上海海洋馆"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"],myspot.find_one({"name":"五角场"})["_id"],myspot.find_one({"name":"迪士尼"})["_id"]]], 'time':[[['8:30', '10:00'], ['14:00', '17:00']], [['8:00', '9:30'], ['10:00', '11:30'], ['1:00', '4:30']]], 'date':['1/1/2017','2/1/2017'], 'shared': 0}
+route = {'spots':[[myspot.find_one({"name":"东方明珠"})["_id"], myspot.find_one({"name":"上海海洋馆"})["_id"]], [myspot.find_one({"name":"豫园"})["_id"],myspot.find_one({"name":"五角场"})["_id"],myspot.find_one({"name":"迪士尼"})["_id"]]], 'time':[[['8:30', '10:00'], ['14:00', '17:00']], [['8:00', '9:30'], ['10:00', '11:30'], ['1:00', '4:30']]], 'date':['01/01/2017','02/01/2017'], 'shared': 0}
 routeID = myuser.find_one({"name":"华泽文"})["routeID"]
 routeID.append(myroute.insert(route))
 myuser.update({'name':'华泽文'}, {'$set':{'routeID':routeID}})
