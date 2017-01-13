@@ -16,9 +16,10 @@ def show_all_route():
 
 @square.route('/getSelectedRoute', methods=['POST'])
 def get_selected_route():
+    # print (request.form)
     id = request.form['detailRouteID']
     user = request.form['user']
-    return jsonify(getSelectedRoute(id,user))
+    return jsonify(getSelectedRoute(id, user))
 
 @square.route('/voteRoute', methods=['POST'])
 def vote_route():
@@ -31,6 +32,7 @@ def vote_route():
 def join_route():
     detailRouteID = request.form['detailRouteID']
     user = request.form['user']
+    print (detailRouteID, user)
     return joinRoute(detailRouteID, user)
 
 @square.route('/bidForRoute', methods=['POST'])

@@ -12,10 +12,9 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "/square/getSelectedRoute"  ,
+        url: "/selectSpots/submitSelectSpots"  ,
         data: {
-            user: '华泽文',
-            detailRouteID: '587787fea7c70948c47f6f33'
+            user: '华泽文'
         },
         success: function (data) {
             console.log(data);

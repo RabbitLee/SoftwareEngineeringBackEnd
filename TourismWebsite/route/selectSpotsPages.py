@@ -34,15 +34,12 @@ def get_all_spots():
 
 @selectSpots.route('/submitSelectedSpots', methods=['POST'])
 def submit_selected_spots():
-    temp = request.form['data']
-    temp = json.loads(temp)
-    print (temp['date'], type(temp))
-    date = request.form['date']
-    spots_id = request.form['spots_id']
-    days = int(date['end_date'][3:5]) - int(date['start_date'][3:5])
-    # print (date)
-    # print (spots_id)
+    data = json.loads(request.form['data'])
+    date = data['date']
+    spots_id = data['spots_id']
+    days = int(date[1][3:5]) - int(date[0][3:5])
     spots_id = generateBestRoute(days, spots_id)
+    print (spots_id)
     time = []
     name = []
     corrdinate = []
@@ -62,6 +59,7 @@ def submit_selected_spots():
             name[i].append(city['name'])
             corrdinate[i].append(city['corrdinate'])
     return jsonify(spots_id=spots_id, time=time, name=name, corrdinate=corrdinate)
+    # return jsonify(name=True)
 
 
 @selectSpots.route('/confirmSelectedSpots', methods=['POST'])

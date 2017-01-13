@@ -37,11 +37,12 @@ def findmyVote(votes, user):
 
 def getSelectedRoute(detailRoute, user):
     detailRoute = ObjectId(detailRoute)
-    user = unicode(user, "utf8")
+    # user = unicode(user, "utf8")
+    user = user
     dict = {}
     dict["routeID"] = str(detailRoute)
     dict["creator"] = findCreator(detailRoute)
-    routeinfo = mydb.route.find_one({"_id": mydb.detailroute.find_one({"_id":detailRoute})["routeID"]})
+    routeinfo = mydb.route.find_one({"_id": mydb.detailroute.find_one({"_id": detailRoute})["routeID"]})
     dict["city"] = mydb.spot.find_one({"_id": routeinfo["spots"][0][0]})["city"]
     dict["participants"] = mydb.detailroute.find_one({"_id":detailRoute})["user"]
     dict["myVote"] = findmyVote(dict["participants"], user)
@@ -61,6 +62,8 @@ def getSelectedRoute(detailRoute, user):
         for spot in spot_d:
             temp.append(mydb.spot.find_one({"_id":spot})["mapID"]["LngLat"])
         dict["coordinate"].append(temp)
+    for i in range(len(dict['spot_id'])):
+        dict['spot_id'][i] = str(dict['spot_id'][i])
     return dict
 
 def joinRoute(detailRoute, user):

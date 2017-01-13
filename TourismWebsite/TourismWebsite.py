@@ -22,4 +22,4 @@ from route.squarePages import square
 app.register_blueprint(square, url_prefix='/square')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
