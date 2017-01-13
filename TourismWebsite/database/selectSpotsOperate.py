@@ -113,6 +113,9 @@ def generateBestRoute(days, spots_id):
     return ans
 
 def saveRoute(user, shared, date, spots, time):
+    for spot in spots:
+        for s in spot:
+            s = ObjectId(s)
     route = {'spots': spots, 'time': time, 'date': date, 'shared': shared}
     routeId = mydb.route.insert(route)
     routeID = mydb.user.find_one({"name": user})["routeID"]
@@ -132,7 +135,7 @@ def getSpotInfo(spotId):
 
 if __name__ == '__main__':
      print saveRoute(mydb.user.find_one({"name": "华泽文"})["name"], 1, ['1/8/2017','1/9/2017'],
-                     [[mydb.spot.find_one({"name": "五角场"})["_id"]], [mydb.spot.find_one({"name": "迪士尼"})["_id"]]],
+                     [[str(mydb.spot.find_one({"name": "五角场"})["_id"])], [str(mydb.spot.find_one({"name": "迪士尼"})["_id"])]],
                      [[['13:30', '16:30']], [['9:00', '18:00']]])
      print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
 

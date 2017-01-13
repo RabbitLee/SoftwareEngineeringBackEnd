@@ -46,6 +46,7 @@ def getSelectedRoute(detailRoute, user):
     dict["city"] = mydb.spot.find_one({"_id": routeinfo["spots"][0][0]})["city"]
     dict["participants"] = mydb.detailroute.find_one({"_id":detailRoute})["user"]
     dict["myVote"] = findmyVote(dict["participants"], user)
+    dict["state"] = mydb.detailroute.find_one({"_id": detailRoute})["state"]
     dict["agency"] = mydb.detailroute.find_one({"_id":detailRoute})["agency"]
     dict["spot_id"] = routeinfo["spots"]
     dict["time"] = routeinfo["time"]
@@ -107,7 +108,7 @@ def bidForRoute(agency, bidFor, fare):
 
 if __name__ == '__main__':
     print getAllRoutes()
-    print getSelectedRoute("587651d3d9eca43414dbbd2e", "华泽文")
-    print joinRoute("587651d3d9eca43414dbbd2e", "李逸超")
-    print voteRoute("587651d3d9eca43414dbbd2e", "李逸超", "北京青旅")
-    print bidForRoute("北京青旅", "587651d3d9eca43414dbbd2e", 500)
+    # print getSelectedRoute("587651d3d9eca43414dbbd2e", "华泽文")
+    # print joinRoute("587651d3d9eca43414dbbd2e", "李逸超")
+    # print voteRoute("587651d3d9eca43414dbbd2e", "李逸超", "北京青旅")
+    # print bidForRoute("北京青旅", "587651d3d9eca43414dbbd2e", 500)

@@ -125,7 +125,7 @@ myuser.update({'name':'华泽文'}, {'$set':{'routeID':routeID}})
 
 mydetailroute = mydb.detailroute
 detailroute = [{'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
-                   'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国青旅"})["name"]], [myuser.find_one({"name":"曾一帆"})["name"], myagency.find_one({"name":"北京青旅"})["name"]]],
+                   'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国青旅"})["name"], "未支付"], [myuser.find_one({"name":"曾一帆"})["name"], myagency.find_one({"name":"北京青旅"})["name"], "已支付"]],
                    'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["name"], "fare":1200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["name"], "fare":1500, "poll":0}, {"agencyID":myagency.find_one({"name":"北京青旅"})["name"], "fare":998, "poll":1}]}]
 detailrouteID = mydetailroute.insert(detailroute)
 temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
