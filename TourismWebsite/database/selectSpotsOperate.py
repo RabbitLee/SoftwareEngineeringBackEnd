@@ -113,9 +113,9 @@ def generateBestRoute(days, spots_id):
     return ans
 
 def saveRoute(user, shared, date, spots, time):
-    for spot in spots:
-        for s in spot:
-            s = ObjectId(s)
+    for i in range(len(spots)):
+        for j in range(len(spots[i])):
+            spots[i][j] = ObjectId(spots[i][j])
     route = {'spots': spots, 'time': time, 'date': date, 'shared': shared}
     routeId = mydb.route.insert(route)
     routeID = mydb.user.find_one({"name": user})["routeID"]
