@@ -22,6 +22,7 @@ def getAllRoutes():
         dict["creator"] = findCreator(detailroute["_id"])
         routeinfo = mydb.route.find_one({"_id":detailroute["routeID"]})
         dict["date"] = routeinfo["date"]
+        print (routeinfo['spots'])
         dict["city"] = mydb.spot.find_one({"_id":routeinfo["spots"][0][0]})["city"]
         dict["spot"] = []
         dict["spot"].append(mydb.spot.find_one({"_id":routeinfo["spots"][0][0]})["name"])

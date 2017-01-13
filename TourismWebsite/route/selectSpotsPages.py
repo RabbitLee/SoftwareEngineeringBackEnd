@@ -99,7 +99,7 @@ def confirm_route():
     if (type(saveRoute(user,shared,date,spots,time)) == bson.objectid.ObjectId):
         return jsonify({'success':True})
     else:
-        return jsonify{'success':False}
+        return jsonify({'success':False})
 
 
 
