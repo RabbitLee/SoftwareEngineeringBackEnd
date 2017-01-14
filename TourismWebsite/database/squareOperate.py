@@ -124,7 +124,7 @@ def bidForRoute(agency, bidFor, fare):
     return jsonify(success=True)
 
 if __name__ == '__main__':
-    print getAllRoutes()
+    print getSelectedRoute('5879758de2e6ca251079f47b', '华泽文')
     # print getSelectedRoute("587651d3d9eca43414dbbd2e", "华泽文")
     # print joinRoute("587651d3d9eca43414dbbd2e", "李逸超")
     # print voteRoute("587651d3d9eca43414dbbd2e", "李逸超", "北京青旅")

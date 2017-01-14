@@ -12,9 +12,10 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "/personInfo/showAllAgency",
+        url: "/agencyPersonInfo/getSelectedRoute",
         data: {
-            userID: '华泽文'
+            agencyname: '中国青旅',
+            detailRouteID: '5879758de2e6ca251079f47b'
         },
         success: function (data) {
             console.log(data);
