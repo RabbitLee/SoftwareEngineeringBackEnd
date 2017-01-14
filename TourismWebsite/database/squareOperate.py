@@ -100,7 +100,7 @@ def voteRoute(detailRoute, user, voteFor):
         if u[0] == user:
             if u[1] != "False":
                 for a in agencies:
-                    if a["agencyID"] == u[1]:
+                    if a["agencyID"] == u[1] and a["poll"] > 0:
                         a["poll"] -= 1
     for u in users:
         if u[0] == user:
@@ -113,13 +113,21 @@ def voteRoute(detailRoute, user, voteFor):
     return jsonify(success=True)
 
 def bidForRoute(agency, bidFor, fare):
+    print (agency, bidFor, fare)
+    fare = int(fare)
     bidFor = ObjectId(bidFor)
     agency = agency
     agencies = mydb.detailroute.find_one({'_id': bidFor})["agency"]
+    print (agencies)
     for a in agencies:
+        # print (a)
         if a["agencyID"] == agency:
-            return jsonify(success=False)
-    agencies.append([agency, fare, 0])
+            # return jsonify(success=False)
+            a["fare"] = fare
+            a["poll"] = 0
+            mydb.detailroute.update({'_id': bidFor}, {'$set': {'agency': agencies}})
+            return jsonify(success=True)
+    agencies.append({"fare": fare, "poll": 0, "agencyID": agency})
     mydb.detailroute.update({'_id': bidFor}, {'$set': {'agency': agencies}})
     return jsonify(success=True)
 

@@ -34,16 +34,18 @@ def showRouteInPage(userID):
 
 def showAllAgency(userID):
     l = []
+    temp = mydb.user.find_one({"name":userID})["detailrouteID"]
     for detailroute in mydb.user.find_one({"name":userID})["detailrouteID"]:
         detailrouteinfo = mydb.detailroute.find_one({"_id":detailroute})
         dict = {}
+        p = 1
         for user in detailrouteinfo["user"]:
-            if user[0] == userID:
-                if user[1] == "False":
-                    return "未投票"
-                else:
-                    dict["agency"] = user[1]
-                    dict["state"] = user[2]
+            if user[0] == userID and user[1] != "False":
+                dict["agency"] = user[1]
+                dict["state"] = user[2]
+                p = 0
+        if p == 1:
+            continue
         dict["routeID"] = str(detailroute)
         routeinfo = mydb.route.find_one({"_id": detailrouteinfo["routeID"]})
         dict["date"] = routeinfo["date"]
@@ -115,10 +117,10 @@ def getSelectedRoute(agencyname, detailRouteID):
     return dict
 
 if __name__ == '__main__':
-    print showRouteInPage("华泽文")
-    # print showAllAgency("华泽文")
+    # print showRouteInPage("华泽文")
+    print showAllAgency("华泽文")
     # print showAgencyRoute("中国青旅")
-    print getSelectedRoute("中国青旅", "58797135a7c709bbacc588b6")
+    # print getSelectedRoute("中国青旅", "58797135a7c709bbacc588b6")
     # print getSelectedRoute("587651d3d9eca43414dbbd2e", "华泽文")
     # print joinRoute("587651d3d9eca43414dbbd2e", "李逸超")
     # print voteRoute("587651d3d9eca43414dbbd2e", "李逸超", "北京青旅")

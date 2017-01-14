@@ -37,6 +37,8 @@ def join_route():
 
 @square.route('/bidForRoute', methods=['POST'])
 def bid_for_route():
+    print (12354235)
+    print(request.form)
     agency = request.form['agency']
     bidFor = request.form['bidFor']
     fare = request.form['fare']

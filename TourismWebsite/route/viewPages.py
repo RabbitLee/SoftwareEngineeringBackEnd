@@ -19,6 +19,7 @@ def show_route_in_page():
 def show_all_agency():
     userID = request.form['userID']
     list = showAllAgency(userID)
+    print (list)
     return jsonify(list=list)
 
 @agencyPersonInfo.route('/showAgencyRoute', methods=['POST'])

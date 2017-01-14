@@ -42,7 +42,7 @@ def getLngLat(address, city):
         "address": address,
         "city": city,
         "output": "JSON",
-        "key": "ca67bcc4b9fc499bb058e983b2a9b10f",
+        "key": "4ca5ab7fe5168f5e5a3a2b5e86901b99",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
@@ -143,24 +143,24 @@ mydetailroute = mydb.detailroute
 detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
                    'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国青旅"})["name"], "未支付"], [myuser.find_one({"name":"曾一帆"})["name"], myagency.find_one({"name":"北京青旅"})["name"], "已支付"]],
                    'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["name"], "fare":1200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["name"], "fare":1500, "poll":0}, {"agencyID":myagency.find_one({"name":"北京青旅"})["name"], "fare":998, "poll":1}]}
-detailrouteID = mydetailroute.insert(detailroute)
-temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
-temp.append(detailrouteID)
-myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':temp}})
-temp = myuser.find_one({"name":"曾一帆"})["detailrouteID"]
-temp.append(detailrouteID)
-myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':temp}})
+temp = mydetailroute.insert(detailroute)
+detailrouteID = myuser.find_one({"name":"华泽文"})["detailrouteID"]
+detailrouteID.append(temp)
+myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':detailrouteID}})
+detailrouteID = myuser.find_one({"name":"曾一帆"})["detailrouteID"]
+detailrouteID.append(temp)
+myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':detailrouteID}})
 
-detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][1],
+detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
                    'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国国旅"})["name"], "已支付"], [myuser.find_one({"name":"李逸超"})["name"], myagency.find_one({"name":"中国青旅"})["name"], "已支付"]],
                    'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["name"], "fare":200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["name"], "fare":500, "poll":0}, {"agencyID":myagency.find_one({"name":"中旅国际"})["name"], "fare":398, "poll":1}]}
-detailrouteID = mydetailroute.insert(detailroute)
-temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
-temp.append(detailrouteID)
-myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':temp}})
-temp = myuser.find_one({"name":"李逸超"})["detailrouteID"]
-temp.append(detailrouteID)
-myuser.update({'name':'李逸超'}, {'$set':{'detailrouteID':temp}})
+temp = mydetailroute.insert(detailroute)
+detailrouteID = myuser.find_one({"name":"华泽文"})["detailrouteID"]
+detailrouteID.append(temp)
+myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':detailrouteID}})
+detailrouteID = myuser.find_one({"name":"李逸超"})["detailrouteID"]
+detailrouteID.append(temp)
+myuser.update({'name':'李逸超'}, {'$set':{'detailrouteID':detailrouteID}})
 
 
 
@@ -196,7 +196,7 @@ def spotDistance(origin, destination, city):
         "destination": str(deslng) + ','+ str(deslat),
         "city": city,
         "output": "JSON",
-        "key": "ca67bcc4b9fc499bb058e983b2a9b10f",
+        "key": "4ca5ab7fe5168f5e5a3a2b5e86901b99",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
