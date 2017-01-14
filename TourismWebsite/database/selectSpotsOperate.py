@@ -136,20 +136,20 @@ def getSpotInfo(spotId):
     dict["visit_time"] = spotinfo["visit_time"]
     return dict
 
-if __name__ == '__main__':
-     print saveRoute(mydb.user.find_one({"name": "华泽文"})["name"], 1, ['1/8/2017','1/9/2017'],
-                     [[str(mydb.spot.find_one({"name": "五角场"})["_id"])], [str(mydb.spot.find_one({"name": "迪士尼"})["_id"])]],
-                     [[['13:30', '16:30']], [['9:00', '18:00']]])
-     print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
-
-#     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
-
-    #print getSpotInfo("5877051fd9eca40fec0488d7")
-
-#     print getSpotInfo("5877051fd9eca40fec0488d7")
-     temp = getAllSpots('上海')
-
-     print (temp)
+# if __name__ == '__main__':
+#      print saveRoute(mydb.user.find_one({"name": "华泽文"})["name"], 1, ['1/8/2017','1/9/2017'],
+#                      [[str(mydb.spot.find_one({"name": "五角场"})["_id"])], [str(mydb.spot.find_one({"name": "迪士尼"})["_id"])]],
+#                      [[['13:30', '16:30']], [['9:00', '18:00']]])
+#      print getTimeBetweenSpots([mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+#
+# #     print generateBestRoute(2, [mydb.spot.find_one({"name":"五角场"})["_id"], mydb.spot.find_one({"name":"豫园"})["_id"], mydb.spot.find_one({"name":"东方明珠"})["_id"]])
+#
+#     #print getSpotInfo("5877051fd9eca40fec0488d7")
+#
+# #     print getSpotInfo("5877051fd9eca40fec0488d7")
+#      temp = getAllSpots('上海')
+#
+#      print (temp)
 
 #     ans = []
 #     for i in range(len(temp['spots'])):

@@ -12,10 +12,9 @@
 <script>
     $.ajax({
         type: "POST",
-        url: "/selectSpots/submitSelectedSpots",
+        url: "/personInfo/showRouteInPage",
         data: {
-            date: ['01/01/2017', '01/02/2017'],
-            spots_id: ['58790674a7c709464a5ca78d', '58790674a7c709464a5ca78e', '58790674a7c709464a5ca78f', '58790674a7c709464a5ca790', '58790674a7c709464a5ca792']
+            userID: '华泽文'
         },
         success: function (data) {
             console.log(data);

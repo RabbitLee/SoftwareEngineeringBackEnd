@@ -110,11 +110,11 @@ def getSelectedRoute(agencyname, detailRouteID):
         dict["coordinate"].append(temp)
     return dict
 
-if __name__ == '__main__':
-    print showRouteInPage("华泽文")
-    print showAllAgency("华泽文")
-    print showAgencyRoute("中国青旅")
-    print getSelectedRoute("中国青旅", "58794d35d9eca43740270c3c")
+# if __name__ == '__main__':
+    # print showRouteInPage("华泽文")
+    # print showAllAgency("华泽文")
+    # print showAgencyRoute("中国青旅")
+    # print getSelectedRoute("中国青旅", "58794d35d9eca43740270c3c")
     # print getSelectedRoute("587651d3d9eca43414dbbd2e", "华泽文")
     # print joinRoute("587651d3d9eca43414dbbd2e", "李逸超")
     # print voteRoute("587651d3d9eca43414dbbd2e", "李逸超", "北京青旅")

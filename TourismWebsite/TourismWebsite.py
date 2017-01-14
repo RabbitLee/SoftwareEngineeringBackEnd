@@ -21,5 +21,11 @@ app.register_blueprint(selectSpots, url_prefix='/selectSpots')
 from route.squarePages import square
 app.register_blueprint(square, url_prefix='/square')
 
+from route.viewPages import personInfo
+app.register_blueprint(personInfo, url_prefix='/personInfo')
+
+from route.viewPages import agencyPersonInfo
+app.register_blueprint(agencyPersonInfo, url_prefix='/agencyPersonInfo')
+
 if __name__ == '__main__':
     app.run()
