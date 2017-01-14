@@ -42,7 +42,7 @@ def getLngLat(address, city):
         "address": address,
         "city": city,
         "output": "JSON",
-        "key": "98ecdfe6cd8cd1f4d4a119579f0ed3cf",
+        "key": "ca67bcc4b9fc499bb058e983b2a9b10f",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
@@ -167,7 +167,7 @@ def spotDistance(origin, destination, city):
         "destination": str(deslng) + ','+ str(deslat),
         "city": city,
         "output": "JSON",
-        "key": "a33b52f76e71d0efdf120c6a0997c380",
+        "key": "ca67bcc4b9fc499bb058e983b2a9b10f",
     }
     params = urlencode(params)
     f = urllib.urlopen(url, params)
