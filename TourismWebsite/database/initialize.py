@@ -97,24 +97,19 @@ myspot.insert(spots)
 spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 31.239136], 'exact_name':'东方明珠电视塔'}, 'visit_time':90, 'level': 0},
          {'name':'五角场', 'city':'上海', 'mapID':{'LngLat':[121.514158, 31.299059], 'exact_name':'五角场商业中心'}, 'visit_time':180, 'level': 0},
          {'name':'豫园', 'city':'上海', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':210, 'level': 0},
-         {'name':'迪士尼', 'city':'上海', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':480, 'level': 1},
-         {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':360, 'level': 1},
-         {'name':'朱家角', 'city':'上海', 'mapID':{'LngLat':[121.053464, 31.108869], 'exact_name':'朱家角古镇旅游区'}, 'visit_time':360, 'level': 0},
-         {'name':'同济大学', 'city':'上海', 'mapID':{'LngLat':[121.503799, 31.283220], 'exact_name':'同济大学四平路校区'}, 'visit_time':40, 'level': 1},
+         {'name':'迪士尼', 'city':'上海', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':240, 'level': 1},
+         {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':180, 'level': 1},
+         {'name':'朱家角', 'city':'上海', 'mapID':{'LngLat':[121.053464, 31.108869], 'exact_name':'朱家角古镇旅游区'}, 'visit_time':90, 'level': 0},
+         {'name':'同济大学', 'city':'上海', 'mapID':{'LngLat':[121.503799, 31.283220], 'exact_name':'同济大学四平路校区'}, 'visit_time':30, 'level': 1},
          {'name':'上海海洋馆', 'city':'上海', 'mapID':{'LngLat':[121.501550, 31.240499], 'exact_name':'上海海洋馆'}, 'visit_time':120, 'level': 0},
          {'name':'金茂大厦', 'city':'上海', 'mapID': {'LngLat':[121.504774, 31.234743], 'exact_name':'上海金茂大厦'}, 'visit_time':60, 'level': 0},
-         {'name':'欢乐谷', 'city':'上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name':'上海欢乐谷'},'visit_time':400, 'level': 0},
-         {'name':'外滩', 'city':'上海', 'mapID': {'LngLat': [121.491084, 31.234991], 'exact_name':'上海外滩'},'visit_time':20, 'level': 1},
+         {'name':'欢乐谷', 'city':'上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name':'上海欢乐谷'},'visit_time':120, 'level': 0},
+         {'name':'外滩', 'city':'上海', 'mapID': {'LngLat': [121.491084, 31.234991], 'exact_name':'上海外滩'},'visit_time':30, 'level': 1},
          {'name': '玉佛寺', 'city': '上海', 'mapID': {'LngLat': [121.445043, 31.241043], 'exact_name': '上海玉佛寺'},'visit_time': 30, 'level': 0},
-         {'name': '上海博物馆', 'city': '上海', 'mapID': {'LngLat': [121.475410, 31.228254], 'exact_name': '上海博物馆'},'visit_time': 100, 'level': 0},
-         {'name': '中华艺术宫', 'city': '上海', 'mapID': {'LngLat': [121.494590, 31.184375], 'exact_name': '上海中华艺术宫'},'visit_time': 80, 'level': 0},
-         {'name': '上海杜莎夫人蜡像馆', 'city': '上海', 'mapID': {'LngLat': [121.473819, 31.234775], 'exact_name': '上海杜莎夫人蜡像馆'},'visit_time': 80, 'level': 0},
+         {'name': '上海博物馆', 'city': '上海', 'mapID': {'LngLat': [121.475410, 31.228254], 'exact_name': '上海博物馆'},'visit_time': 90, 'level': 0},
+         {'name': '中华艺术宫', 'city': '上海', 'mapID': {'LngLat': [121.494590, 31.184375], 'exact_name': '上海中华艺术宫'},'visit_time': 60, 'level': 0},
+         {'name': '上海杜莎夫人蜡像馆', 'city': '上海', 'mapID': {'LngLat': [121.473819, 31.234775], 'exact_name': '上海杜莎夫人蜡像馆'},'visit_time': 60, 'level': 0},
          {'name': '上海鲁迅公园', 'city': '上海', 'mapID': {'LngLat': [121.483015, 31.271649], 'exact_name': '上海鲁迅公园'},'visit_time': 30, 'level': 0}]
-         # {'name': '朱家角', 'city': '上海', 'mapID': {'LngLat': [121.053464, 31.108869], 'exact_name': '朱家角古镇旅游区'}, 'visit_time': 360, 'level': 1},
-         # {'name': '同济大学', 'city': '上海', 'mapID': {'LngLat': [121.503799, 31.283220], 'exact_name': '同济大学四平路校区'}, 'visit_time': 40, 'level': 0},
-         # {'name': '上海海洋馆', 'city': '上海', 'mapID': {'LngLat': [121.501550, 31.240499], 'exact_name': '上海海洋馆'}, 'visit_time': 120, 'level': 0},
-         # {'name': '金茂大厦', 'city': '上海', 'mapID': {'LngLat': [121.504774, 31.234743], 'exact_name': '上海金茂大厦'}, 'visit_time': 60, 'level': 1},
-         # {'name': '欢乐谷', 'city': '上海', 'mapID': {'LngLat': [121.218011, 31.094381], 'exact_name': '上海欢乐谷'}, 'visit_time': 400, 'level': 1}]
 
 myspot.insert(spots)
 #myspot.update({'name':'东方明珠'}, {'$set':{'spotid':str(myspot.find_one({"name":"东方明珠"})["_id"])}})
@@ -151,21 +146,21 @@ detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
 detailrouteID = mydetailroute.insert(detailroute)
 temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
 temp.append(detailrouteID)
-myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':detailrouteID}})
+myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':temp}})
 temp = myuser.find_one({"name":"曾一帆"})["detailrouteID"]
 temp.append(detailrouteID)
-myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':detailrouteID}})
+myuser.update({'name':'曾一帆'}, {'$set':{'detailrouteID':temp}})
 
-detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][0],
+detailroute = {'routeID':myuser.find_one({"name":"华泽文"})["routeID"][1],
                    'user':[[myuser.find_one({"name":"华泽文"})["name"], myagency.find_one({"name":"中国国旅"})["name"], "已支付"], [myuser.find_one({"name":"李逸超"})["name"], myagency.find_one({"name":"中国青旅"})["name"], "已支付"]],
                    'agency':[{"agencyID":myagency.find_one({"name":"中国青旅"})["name"], "fare":200, "poll":1}, {"agencyID":myagency.find_one({"name":"中国国旅"})["name"], "fare":500, "poll":0}, {"agencyID":myagency.find_one({"name":"中旅国际"})["name"], "fare":398, "poll":1}]}
 detailrouteID = mydetailroute.insert(detailroute)
 temp = myuser.find_one({"name":"华泽文"})["detailrouteID"]
 temp.append(detailrouteID)
-myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':detailrouteID}})
+myuser.update({'name':'华泽文'}, {'$set':{'detailrouteID':temp}})
 temp = myuser.find_one({"name":"李逸超"})["detailrouteID"]
 temp.append(detailrouteID)
-myuser.update({'name':'李逸超'}, {'$set':{'detailrouteID':detailrouteID}})
+myuser.update({'name':'李逸超'}, {'$set':{'detailrouteID':temp}})
 
 
 
