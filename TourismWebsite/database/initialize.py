@@ -23,10 +23,10 @@ mydb.city.remove()
 mydb.province.remove()
 
 myuser = mydb.user
-users = [{'name':'华泽文', 'password':'hzw', 'email':'111', 'phone':'18221037351', 'routeID':[], 'detailrouteID':[]},
-         {'name':'曾一帆', 'password':'zyf', 'email':'222', 'phone':'18221225358', 'routeID':[], 'detailrouteID':[]},
-         {'name':'李逸超', 'password':'lyc', 'email':'333', 'phone':'18211111111', 'routeID':[], 'detailrouteID':[]},
-         {'name':'赵昂悠悠', 'password':'zayy', 'email':'444', 'phone':'18222222222', 'routeID':[], 'detailrouteID':[]}]
+users = [{'name':'华泽文', 'password':'hzw', 'email':'hzw@163.com', 'phone':'18221037351', 'routeID':[], 'detailrouteID':[]},
+         {'name':'曾一帆', 'password':'zyf', 'email':'zyf@126.com', 'phone':'18221225358', 'routeID':[], 'detailrouteID':[]},
+         {'name':'李逸超', 'password':'lyc', 'email':'lyc@gmail.com', 'phone':'18211111111', 'routeID':[], 'detailrouteID':[]},
+         {'name':'赵昂悠悠', 'password':'zayy', 'email':'zayy@qq.com', 'phone':'18222222222', 'routeID':[], 'detailrouteID':[]}]
 myuser.insert(users)
 
 myagency = mydb.agency
