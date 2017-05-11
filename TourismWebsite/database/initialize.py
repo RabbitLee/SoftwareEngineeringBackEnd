@@ -59,13 +59,15 @@ def initializeSpotsByCity(city):
         html = page.read()
         return html
     def getImg(html):
-        reg = r'<a\s+href="http://www.tuniu.com.g' + city + r'/whole-sh-0/list-d.+?-h0-i-j0_0/"\s+rel="nofollow">\s+(.+?)\s+</a>'
+        reg = r'list-d.+?-h0-i-j0_0.\Spcat=' + city[3] + r'"\s+rel="nofollow">\s*(.+?)\s*</a>'
         #reg = r'<a href="/poi/.+?\.html" target="_blank" title="(.+?)\">'
         #r'A 上海市景点 (.+?)\<br>'
+        print reg
         imgre = re.compile(reg)
         imglist = re.findall(imgre, html)
         return imglist
-    html = getHtml("http://www.tuniu.com/g" + city + "/whole-sh-0/list-h0-j0_0/")
+    html = getHtml("http://www.tuniu.com/guide/d-" + city[1] + "-" + city[2] + "/?pcat=" + city[3])
+    print "http://www.tuniu.com/guide/d-" + city[1] + "-" + city[2] + "/?pcat=" + city[3]
     return getImg(html)
 
 def randlevel():
@@ -75,12 +77,11 @@ def randlevel():
         return 0
 
 myspot = mydb.spot
-
-citys = [["三亚", "906"],["海口","902"],["重庆","300"]]
+citys = [["三亚", "sanya", "906", "67"],["海口", "haikou", "902", "67"],["重庆", "chongqing", "300", "27"]]
 spots = []
 
 for city in citys:
-    s = initializeSpotsByCity(city[1])
+    s = initializeSpotsByCity(city)
     n = 0
     for i in s:
         if n >= 15:
@@ -98,7 +99,7 @@ spots = [{'name':'东方明珠', 'city':'上海', 'mapID':{'LngLat':[121.52063, 
          {'name':'五角场', 'city':'上海', 'mapID':{'LngLat':[121.514158, 31.299059], 'exact_name':'五角场商业中心'}, 'visit_time':180, 'level': 0},
          {'name':'豫园', 'city':'上海', 'mapID':{'LngLat':[121.492289, 31.227401], 'exact_name':'豫园商业区'}, 'visit_time':210, 'level': 0},
          {'name':'迪士尼', 'city':'上海', 'mapID':{'LngLat':[121.674272, 31.164291], 'exact_name':'迪士尼乐园'}, 'visit_time':240, 'level': 1},
-         {'name':'佘山', 'city':'南京', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':180, 'level': 1},
+         {'name':'佘山', 'city':'上海', 'mapID':{'LngLat':[112.196778, 31.094494], 'exact_name':'佘山旅游景点'}, 'visit_time':180, 'level': 1},
          {'name':'朱家角', 'city':'上海', 'mapID':{'LngLat':[121.053464, 31.108869], 'exact_name':'朱家角古镇旅游区'}, 'visit_time':90, 'level': 0},
          {'name':'同济大学', 'city':'上海', 'mapID':{'LngLat':[121.503799, 31.283220], 'exact_name':'同济大学四平路校区'}, 'visit_time':30, 'level': 1},
          {'name':'上海海洋馆', 'city':'上海', 'mapID':{'LngLat':[121.501550, 31.240499], 'exact_name':'上海海洋馆'}, 'visit_time':120, 'level': 0},
