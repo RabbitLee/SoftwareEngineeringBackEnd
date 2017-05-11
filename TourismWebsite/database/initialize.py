@@ -62,12 +62,10 @@ def initializeSpotsByCity(city):
         reg = r'list-d.+?-h0-i-j0_0.\Spcat=' + city[3] + r'"\s+rel="nofollow">\s*(.+?)\s*</a>'
         #reg = r'<a href="/poi/.+?\.html" target="_blank" title="(.+?)\">'
         #r'A 上海市景点 (.+?)\<br>'
-        print reg
         imgre = re.compile(reg)
         imglist = re.findall(imgre, html)
         return imglist
     html = getHtml("http://www.tuniu.com/guide/d-" + city[1] + "-" + city[2] + "/?pcat=" + city[3])
-    print "http://www.tuniu.com/guide/d-" + city[1] + "-" + city[2] + "/?pcat=" + city[3]
     return getImg(html)
 
 def randlevel():
